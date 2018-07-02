@@ -1,0 +1,63 @@
+﻿@model IEnumerable<Kuff.Common.DTOs.OrderRelated.ShipmentCostDto>
+
+@{
+    ViewBag.Title = "List";
+}
+
+<h2>List</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ShipmentMethodId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DepartureCity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DestinationCity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateOfAddedShipmentCost)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Cost)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ShipmentMethodDescription)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ShipmentMethodId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DepartureCity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DestinationCity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateOfAddedShipmentCost)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cost)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ShipmentMethodDescription)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

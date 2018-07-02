@@ -1,0 +1,156 @@
+﻿@using Kuff.Common.DTOs.ProductRelated
+@model ProductDto
+
+<h2 dir="rtl">ویرایش کالا</h2>
+<br />
+
+@if (ViewBag.Success == true)
+{
+    <span class="lead" style="display:block" dir="rtl">محصول ویرایش شد</span>
+}
+
+<div class="panel panel-default">
+    <div class="panel panel-body">
+        @using (Html.BeginForm("Edit", "Products", FormMethod.Post, new { encType = "multipart/form-data" }))
+        {
+            @Html.HiddenFor(p => p.ProductTypeTitle)
+            @Html.HiddenFor(p => p.Id)
+            @Html.HiddenFor(p => p.ProductTypeId)
+
+            <div class="row" dir="rtl">
+                <div class="col-md-6" style="float:right;padding:10px">
+                    <div class="panel panel-default">
+                        <div class="panel-heading"> نوع محصول </div>
+                        <div class="panel panel-body">
+                            <div class="form-group">
+                                @Html.TextBoxFor(p => p.ProductTypeTitle, new { @class = "form-control", disabled = "disabled", dir = "rtl", style = "margin:20px" })
+                            </div>
+                        </div>
+                    </div>
+                    <script>
+                        var PropValueCounter = -1;
+                    </script>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">خصیصه ها</div>
+                        <div class="panel-body">
+                            <div class="form-group">
+                                @for (int i = 0; i < Model.ProductPropertyValues.Count(); i++)
+                                {
+                                    <script>
+                                        PropValueCounter++;
+                                    </script>
+                                    @Html.Hidden("ProductPropertyValues[" + i + "].ProductId", Model.ProductPropertyValues.ElementAt(i).ProductId)
+                                    @Html.Hidden("ProductPropertyValues[" + i + "].ProductTypePropertyId", Model.ProductPropertyValues.ElementAt(i).ProductTypePropertyId)
+                                    @Html.Hidden("ProductPropertyValues[" + i + "].Id", Model.ProductPropertyValues.ElementAt(i).Id)
+
+                                    @Html.Label(Model.ProductPropertyValues.ElementAt(i).ProductTypePropertyTitle, new { dir = "rtl" })
+                                    <button id="@("btn_Value_" + i )"  type="button" class="btn btn-warning" style="margin-right:10px" onclick=@("returnToDefaultValueById(\"" + Model.ProductPropertyValues.ElementAt(i).Id + "\",\"ProductPropertyValues_" + i + "_Value\")")>بازگشت به حالت اول</button>
+                     
+                                    @Html.TextBox("ProductPropertyValues[" + i + "].Value", Model.ProductPropertyValues.ElementAt(i).Value, new { @class = "form-control", dir = "rtl", style = "margin:20px", id = "ProductPropertyValues_" + i + "_Value" })
+                                }
+                                @Html.LabelFor(p => p.Summary, new { dir = "rtl", style = "margin-right:10px" })
+                                <button id="btn_Summary" type="button" class="btn btn-warning" style="margin-right:10px" onclick="@("returnToDefaultValueByTitle(\"" + Model.Id + "\", \"Summary\"," + "\"Summary\")")">بازگشت به حالت اول</button>                           
+                                @Html.TextBoxFor(p => p.Summary, new { @class = "form-control", dir = "rtl", style = "margin:20px", id = "Summary" })
+                                @Html.LabelFor(p => p.Comments, new { dir = "rtl" })
+                                <button id="btn_Comments" type="button" class="btn btn-warning" style="margin-right:10px" onclick="@("returnToDefaultValueByTitle(\"" + Model.Id + "\", \"Comments\"," + "\"Comments\")")">بازگشت به حالت اول</button> 
+                                @Html.TextAreaFor(p => p.Comments, new { @class = "form-control", dir = "rtl", style = "margin:20px" })
+
+                                <button type="button" class="btn btn-danger" style="margin-right:10px;width:300px" onclick="resetAllToDefault();">بازگشت همه خصیصه ها به حالت اولیه</button>
+                                <script>
+                                    function resetAllToDefault() {
+                                        for (var c = 0; c <= PropValueCounter; c++) {
+                                            $("#btn_Value_" + c).click();
+                                        }
+                                        $("#btn_Summary").click();
+                                        $("#btn_Comments").click();
+                                    }
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+                    <script>
+                        var counter = 0;
+                    </script>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">تصاویر</div>
+                        <div id="imagePanel" class="panel-body">
+                            @for (int i = 0; i < Model.ProductPictures.Count(); i++)
+                            {
+                                <script>
+                                    counter++;
+                                </script>
+                                <div class="panel panel-default" id=@("imageInnerPanel_" + i)>
+                                    <label style="margin:10px">تصویر شماره @(i + 1)</label>
+                                    <div class="panel-body">
+                                        @{
+                                            ProductPictureDto[] productPictures = Model.ProductPictures.ToArray();
+                                            ProductPictureDto prodPic = Model.ProductPictures.ElementAt(i);
+                                            var orders = ((IEnumerable<SelectListItem>)ViewBag.PicOrders).ToArray();
+                                            orders[i].Selected = true;
+                                        }
+
+                                        @Html.Hidden("ProductPictures[" + i + "].ProductId", prodPic.ProductId)
+                                        @Html.Hidden("ProductPictures[" + i + "].Id", prodPic.Id)
+                                        @Html.Hidden("ProductPictures[" + i + "].ContentType", prodPic.ContentType)
+                                        @Html.Hidden("ProductPictures[" + i + "].FileExtension", prodPic.FileExtension)
+                                        @Html.Hidden("ProductPictures[" + i + "].FilePath", prodPic.FilePath)
+
+                                        <div class="form-group">
+                                            <img id=@("img_" + i) src=@Url.Action("GetProductImageById", new { controller="Products", id = prodPic.Id }) alt="fd" width="200" height="200" style="padding:5px;display:block;border:1px solid black;" />
+                                            @Html.CheckBox("ProductPictures[" + i + "].IsForSummaryPreview", prodPic.IsForSummaryPreview, new { dir = "rtl", style = "padding:5px;" })
+                                            @Html.LabelFor(p => p.ProductPictures.ElementAt(i).IsForSummaryPreview, new { dir = "rtl", @for = "ProductPictures[" + i + "].IsForSummaryPreview", style = "padding:5px;" })
+                                            <br />
+                                            @Html.CheckBox("ProductPictures[" + i + "].IsMainPicture", prodPic.IsMainPicture, new { dir = "rtl", style = "padding:5px;" })
+                                            @Html.LabelFor(p => p.ProductPictures.ElementAt(i).IsMainPicture, new { dir = "rtl", @for = "ProductPictures[" + i + "].IsMainPicture", style = "padding:5px;" })
+                                            <br />
+                                            @Html.LabelFor(p => p.ProductPictures.ElementAt(i).PictureOrder, new { @for = "ProductPictures[" + i + "].PictureOrder" })
+                                            @Html.DropDownList("ProductPictures[" + i + "].PictureOrder", orders, new { @class = "form-control", dir = "rtl" })
+                                            <br />
+                                            @Html.LabelFor(p => p.ProductPictures.ElementAt(i).FileName, new { @for = "ProductPictures[" + i + "].FileName" })
+                                            @Html.TextBox("ProductPictures[" + i + "].FileName", productPictures[i].FileName, new { @class = "form-control" })
+                                            <br />
+
+                                            <div dir="rtl">
+                                                <input type="hidden" id="picStateHidden_@i" name="@("ProductPictures[" + i + "].State")" value="state_unchanged" />
+                                                <label style="margin-right:15px;margin-top:10px">عملیات موردنظر : </label>
+                                                <label>عدم تغییر عکس</label>
+                                                @Html.RadioButton("changeRadio_" + i, "state_unchanged", true, new { style = "margin-left:15px;margin-top:20px", onchange = "undoChange(" + i + ", \"" + prodPic.Id + "\");setPicState(\"" + i + "\")" })
+                                                <label>جایگزینی عکس</label>
+                                                @Html.RadioButton("changeRadio_" + i, "state_updated", false, new { style = "margin-left:15px;margin-top:20px", onchange = "showFileInput(\"" + i + "\");setPicState(\"" + i + "\")" })
+                                                <label>حذف عکس</label>
+                                                @Html.RadioButton("changeRadio_" + i, "state_deleted", false, new { style = "margin-left:15px;margin-top:20px", onchange = "setPicState(\"" + i + "\")" })
+                                                <input type="file" id=@("files_" + i) name="files[@i]" style="margin-left:15px;margin-top:20px;visibility:hidden;" onchange="showPicInImg(event, @i)" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                            }
+                        </div>
+                        <button type="button" id="addImageBtn" class="btn btn-success" style="margin:15px;width:200px">Add Image</button>
+                        <script>
+                            $("#addImageBtn").attr("onclick", "addImage()");
+                        </script>
+                        <button type="button" class="btn btn-danger" style="margin:15px;width:200px" onclick="removeImage();">Remove Image</button>
+                    </div>
+                    <input type="submit" value="Edit" class="btn btn-primary" style="margin:15px;width:150px" />
+                    <button type="button" btn btn-danger" style="margin:15px;width:150px">Cancel</button>
+                </div>
+            </div>
+                                            }
+    </div>
+</div>
+
+<script src="~/Scripts/KuffJavaScripts/Areas/Admin/Products/Edit.js"></script>
+
+<script>
+    transferredCounter = counter;
+</script>
+
+
+
+
+
+
+
+
+

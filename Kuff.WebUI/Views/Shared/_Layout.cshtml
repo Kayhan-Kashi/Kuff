@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href="~/Content/MarketShop/image/favicon.png" rel="icon" />
+    <title>فروشگاه کاف استودیو</title>
+    <meta name="description" content="Responsive and clean html template design for any kind of ecommerce webshop">
+    @Styles.Render("~/Content/css")
+    <!-- CSS Part Start-->
+    @*<link rel="stylesheet" type="text/css" href="~/Content/MarketShop/js/bootstrap/css/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="~/Content/MarketShop/js/bootstrap/css/bootstrap-rtl.min.css" />
+        <link rel="stylesheet" type="text/css" href="~/Content/MarketShop/css/font-awesome/css/font-awesome.min.css" />
+        <link rel="stylesheet" type="text/css" href="~/Content/MarketShop/css/stylesheet.css" />
+        <link rel="stylesheet" type="text/css" href="~/Content/MarketShop/css/owl.carousel.css" />
+        <link rel="stylesheet" type="text/css" href="~/Content/MarketShop/css/owl.transitions.css" />*@
+    @RenderSection("swipeBox_min", false)
+    @Styles.Render("~/Content/css2")
+    @*<link rel="stylesheet" type="text/css" href="~/Content/MarketShop/css/responsive.css" />
+        <link rel="stylesheet" type="text/css" href="~/Content/MarketShop/css/stylesheet-rtl.css" />
+        <link rel="stylesheet" type="text/css" href="~/Content/MarketShop/css/responsive-rtl.css" />
+        <link rel="stylesheet" type="text/css" href="~/Content/MarketShop/css/stylesheet-skin2.css" />*@
+    @*<script type="text/javascript" src="~/Content/MarketShop/js/jquery-2.1.1.min.js"></script>*@
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <!-- CSS Part End-->
+</head>
+
+<body>
+    <div class="wrapper-wide">
+        @Html.Partial("~/Views/Shared/HeaderPartial.cshtml")
+        <div>
+            @RenderBody()
+        </div>
+        @Html.Partial("~/Views/Shared/FooterPartial.cshtml")
+    </div>
+
+
+    <!-- JS Part Start-->
+    @Scripts.Render("~/bundles/scripts")
+    @*<script type="text/javascript" src="~/Content/MarketShop/js/bootstrap/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="~/Content/MarketShop/js/jquery.easing-1.3.min.js"></script>
+        <script type="text/javascript" src="~/Content/MarketShop/js/jquery.dcjqaccordion.min.js"></script>
+        <script type="text/javascript" src="~/Content/MarketShop/js/owl.carousel.min.js"></script>*@
+    @RenderSection("elevateZoom_orientationchange_swipebox", false)
+    <script type="text/javascript" src="~/Content/MarketShop/js/custom.js"></script>
+    @RenderSection("ElevateZoomforProductPageimage_PassTheImagesToSwipebox", false)
+    <!-- JS Part End-->
+</body>
+</html>

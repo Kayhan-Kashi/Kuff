@@ -1,0 +1,49 @@
+﻿@using Kuff.Common.DTOs.ProductRelated
+@model ProductDto
+
+
+@if (ViewBag.Success == true)
+{
+    <span class="lead" style="display:block" dir="rtl"> محصول اضافه شد</span>
+}
+
+@Html.ValidationSummary()
+
+
+<h2 dir="rtl">درج کالا</h2>
+<br />
+<div class="panel panel-default">
+    <div class="panel panel-body">
+        @using (Html.BeginForm("Create", "Products", FormMethod.Post, new { encType = "multipart/form-data" }))
+        {
+            <div class="row"  dir="rtl">
+                <div class="col-md-6" style="float:right" id="col_md-container">
+                    <div class="panel panel-default">
+                        <div class="panel panel-body">
+                            <div class="form-group">
+                                @Html.HiddenFor(p => p.Id)
+                                @Html.Label("انتخاب نوع محصول مورد نظر", new { @for = "ProductTypeId" })
+                                @Html.DropDownList("ProductTypeId", (IEnumerable<SelectListItem>)ViewBag.ProductTypesSelectListItems,
+                                    "نوع محصول را مشخص فرمائید", new { @class = "form-control", id = "dropdownPType", dir = "rtl", onchange = "getProductTypePropertiesWithPost(\'" + Model.Id + "\')" })
+                            </div>
+                        </div>
+                    </div>
+                    <div id="ProdPropsContainer">
+
+                    </div>
+                    <div id="image_container">
+
+                    </div>
+                    <div id="submit_div" style="visibility:hidden">
+                        <input type="submit" class="btn btn-success btn-block" value="Create" style="" />
+                        <input type="button" class="btn btn-danger btn-block" value="Cancel" style="" />
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+
+
+<script src="~/Scripts/KuffJavaScripts/Areas/Admin/Products/Create.js"></script>

@@ -1,0 +1,17 @@
+﻿@using Kuff.Common.DTOs.ProductRelated
+@model ProductTypePropertyDto[]
+
+
+<div id="propsContainer" class="panel panel-default" style="padding:20px">
+    @for (int counter = 0; counter < Model.Length; counter++)
+    {
+        <div class="form-group">
+            @*@Html.Hidden("ProductPropertyValues[" + counter + "].ProductPropertyValueId", Guid.NewGuid())*@
+            @Html.Hidden("ProductPropertyValues[" + counter + "].ProductTypePropertyId", Model[counter].Id)
+            @*@Html.Hidden("ProductPropertyValues[" + counter + "].ProductId", ViewBag.ProductId as string)*@
+
+            @Html.Label(Model[counter].Title, new { @for = "ProductPropertyValues[" + counter + "].Value" })
+            @Html.TextBox("ProductPropertyValues[" + counter + "].Value", "", new { @class = "form-control", dir = "rtl" })
+        </div>
+    }
+</div>

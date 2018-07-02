@@ -1,0 +1,428 @@
+﻿@using Kuff.Common.DTOs.ProductRelated
+@model Kuff.WebUI.Areas.Store.Models.ProductDetailsViewModel
+
+
+@section swipeBox_min
+{
+    <link rel="stylesheet" type="text/css" href="~/Content/MarketShop/js/swipebox/src/css/swipebox.min.css">
+}
+
+<input type="hidden" id="input1" value="this is me"/>
+
+<div id="container">
+    <div class="container">
+        <!-- Breadcrumb Start-->
+        <ul class="breadcrumb">
+            <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a href="index.html" itemprop="url"><span itemprop="title"><i class="fa fa-home"></i></span></a></li>
+            <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a href="category.html" itemprop="url"><span itemprop="title">الکترونیکی</span></a></li>
+            <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a href="product.html" itemprop="url"><span itemprop="title">لپ تاپ ایلین ور</span></a></li>
+        </ul>
+        <!-- Breadcrumb End-->
+        <div class="row">
+            <!--Middle Part Start-->
+            <div id="content" class="col-sm-9">
+
+                @{
+                    var mainPic = Model.Product.ProductPictures.Where(p => p.IsMainPicture == true).FirstOrDefault();
+                    IEnumerable<ProductPictureDto> prodPics = Model.Product.ProductPictures.Where(p => p.IsForSummaryPreview == true).ToList();
+                    var productSummary = Model.Product.Summary;
+                    var isAvailable = Model.Product.IsAvailable;
+                    var hasDiscount = Model.Product.HasDiscount;
+                    int specCounter = 0;
+                }
+
+                <div itemscope itemtype="http://schema.org/محصولات">
+                    <h1 class="title" itemprop="name">@productSummary</h1>
+                    <div class="row product-info">
+
+                        <div class="col-sm-6">
+                            <div class="image"><img class="img-responsive" itemprop="image" id="zoom_01" src="@Url.Content(mainPic.FilePath)" /> </div>
+                            <div class="center-block text-center"><span class="zoom-gallery"><i class="fa fa-search"></i> برای مشاهده گالری روی تصویر کلیک کنید</span></div>
+                            <div class="image-additional" id="gallery_01">
+
+                                @foreach (ProductPictureDto prodPic in prodPics)
+                                {
+                                    var picUrl = Url.Content(prodPic.FilePath);
+
+                                    <a class="thumbnail" href="#" data-zoom-image="@picUrl" data-image="@picUrl" title="@productSummary">
+                                        <img src="@picUrl" title="@productSummary" alt="@productSummary" style="display:block;width:100%;height:99px;" />
+                                    </a>
+                                }
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <ul class="list-unstyled description">
+                                <li><b>برند :</b> <a href="#"><span itemprop="brand">کاف استودیو</span></a></li>
+                                <li>
+                                    <b>وضعیت موجودی :</b> @if (isAvailable)
+                                    {<span class="instock">موجود</span> }
+                                    else {<span class="nostock">ناموجود</span> }
+                                </li>
+                            </ul>
+                            @if (isAvailable)
+                            {
+                                <ul class="price-box">
+                                    <li class="price" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                                        @if (hasDiscount)
+                                        {
+                                            <span class="price-old"> @Model.Product.LastPriceWithoutDiscount.ToString("0.") تومان</span>
+                                        }
+                                        <span itemprop="price"> @Model.Product.LastPriceWithDiscount.ToString("0.") تومان</span>
+                                    </li>
+                                </ul>
+                            }
+                            
+                            <script>
+                                var specC = 0;
+                            </script>
+                            @if (isAvailable)
+                            {
+                                @*------------------------------------------------------------------------------------------------------------------------------------------------------------*@
+                            using (Html.BeginForm("AddToCart", "Orders", new { area = "Store" }, FormMethod.Post))
+                            {
+                                @Html.Hidden("orderItem.ProductSummary", Model.Product.Summary)
+                                @Html.Hidden("orderItem.PriceWithoutDiscount", Model.Product.LastPriceWithoutDiscount)
+                                @Html.Hidden("orderItem.PriceWithDiscount", Model.Product.LastPriceWithDiscount)
+                                @Html.Hidden("orderItem.ProductPriceId", Model.Product.ProductPriceId)
+
+                                @Html.Hidden("orderItem.DiscountInPercent", Model.Product.DiscountInPercent)
+                                @Html.Hidden("orderItem.Discount", Model.Product.Discount)
+                                @Html.Hidden("orderItem.HasDiscount", Model.Product.HasDiscount)
+                                @Html.Hidden("orderItem.Id", Guid.NewGuid())
+                                @Html.Hidden("orderItem.OrderItemPictureId", Model.Product.ProductPictures.Where(p => p.IsMainPicture == true).FirstOrDefault().Id)
+                                <div id="product">
+                                    <h3 class="subtitle">انتخاب های در دسترس</h3>
+                                    @{
+                                        //int specCounter = 0;
+                                    }
+                                    @foreach (var prop in Model.HasToChooseProperties)
+                                    {
+                                        <div class="form-group required">
+                                            <label>@prop.PropertyName</label>
+                                            <label>@prop.PropertyName</label>
+                                        </div>
+                                        @Html.Hidden("OrderItem.OrderItemSpecifications[" + specCounter + "].Title", prop.PropertyName, new { id = "OrderItemSpecifications_" + specCounter + "_Title" })
+                                        @Html.Hidden("OrderItem.OrderItemSpecifications[" + specCounter + "].Id", Guid.NewGuid())
+                                        <select class="form-control" id="@("OrderItemSpecifications_" + specCounter + "_Value")" name="orderItem.OrderItemSpecifications[@specCounter].Value">
+                                            <option value=""> --- لطفا انتخاب کنید --- </option>
+                                            @foreach (var val in prop.propValues)
+                                            {
+                                                <option value="@val">@val</option>
+                                            }
+                                        </select>
+                                        <script>
+                                            specC++;
+                                        </script>
+                                        specCounter++;                                     
+                                   }
+
+                                    <br />
+                                    <div class="cart">
+                                        <div>
+                                            <div class="qty">
+                                                <label class="control-label" for="input-quantity">تعداد</label>
+                                                <input type="text" name="OrderItem.Quantity" value="1" size="2" id="input-quantity" class="form-control" />
+                                                <a class="qtyBtn plus" href="javascript:void(0);">+</a><br />
+                                                <a class="qtyBtn mines" href="javascript:void(0);">-</a>
+                                                <div class="clear"></div>
+                                            </div>
+                                            <input type="submit" value="افزودن به سبد" class="btn btn-primary btn-lg" />
+                                        </div>
+                                        <div>
+                                            <button type="button" class="wishlist" onClick=""><i class="fa fa-heart"></i> افزودن به علاقه مندی ها</button>
+                                            <br />
+                                            <button type="button" class="wishlist" onClick=""><i class="fa fa-exchange"></i> مقایسه این محصول</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                            }
+                                        }
+
+                                        @*------------------------------------------------------------------------------------------------------------------------------------------------------------*@
+                                        <div class="rating" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+                                            <meta itemprop="ratingValue" content="0" />
+                                            <p><span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i><i class="fa fa-star-o fa-stack-1x"></i></span> <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i><i class="fa fa-star-o fa-stack-1x"></i></span> <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i><i class="fa fa-star-o fa-stack-1x"></i></span> <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i><i class="fa fa-star-o fa-stack-1x"></i></span> <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span> <a onClick="$('a[href=\'#tab-review\']').trigger('click'); return false;" href=""><span itemprop="reviewCount">1 بررسی</span></a> / <a onClick="$('a[href=\'#tab-review\']').trigger('click'); return false;" href="">یک بررسی بنویسید</a></p>
+                                        </div>
+                                        <hr>
+                                    </div>
+                                </div>
+                                <ul class="nav nav-tabs">
+                                    <li><a href="#tab-description" data-toggle="tab">توضیحات</a></li>
+                                    <li class="active"><a href="#tab-specification" data-toggle="tab">مشخصات</a></li>
+                                    <li><a href="#tab-review" data-toggle="tab">بررسی (2)</a></li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div itemprop="description" id="tab-description" class="tab-pane">
+                                        <div>
+                                            <p><b>@Model.Product.Summary</b></p>
+                                            <p><b>محصولات کاف از پارچه های بسیار مرغوب تهیه شده است</b></p>
+                                            <p><b>چاپ های انجام شه بر روی محصولات از کیفیت بالایی برخوردار است</b></p>
+                                            @*<p>ارائه راهکارها و شرایط سخت تایپ به پایان رسد وزمان مورد نیاز شامل حروفچینی دستاوردهای اصلی و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.</p>
+                                                <p><b>طراحی خارق العاده و بی نظیر</b></p>
+                                                <p>مک بوک در واقع ارائه راهکارها و شرایط سخت تایپ به پایان رسد وزمان مورد نیاز شامل حروفچینی دستاوردهای اصلی و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.</p>
+                                                <p><b>با دوربین i-Sight درون ساخت</b></p>
+                                                <p>بدون نیاز به ارائه راهکارها و شرایط سخت تایپ به پایان رسد وزمان مورد نیاز شامل حروفچینی دستاوردهای اصلی و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.</p>*@
+                                        </div>
+                                    </div>
+                                    <div id="tab-specification" class="tab-pane active">
+                                        <div id="tab-specification" class="tab-pane">
+                                            @foreach (ProductPropertyValueDto pValue in Model.Product.ProductPropertyValues.OrderBy(p => p.ProductTypePropertyOrderNumber))
+                                            {
+                                                var values = pValue.Value.Split(';');
+                                                <table class="table table-bordered">
+                                                    <thead>
+                                                        <tr>
+                                                            <td colspan="2"><strong>@pValue.ProductTypePropertyTitle</strong></td>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            @foreach (string val in values)
+                                                            {
+                                                                <td>@val</td>
+                                                            }
+                                                            @*<td>@pValue.Value</td>*@
+                                                            @*<td>8gb</td>*@
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            }
+                                            @*<table class="table table-bordered">
+                                                    <thead>
+                                                        <tr>
+                                                            <td colspan="2"><strong>حافظه</strong></td>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>تست 1</td>
+                                                            <td>8gb</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <table class="table table-bordered">
+                                                    <thead>
+                                                        <tr>
+                                                            <td colspan="2"><strong>پردازشگر</strong></td>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>تعداد هسته</td>
+                                                            <td>1</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>*@
+                                        </div>
+                                    </div>
+                                    <div id="tab-review" class="tab-pane">
+                                        <form class="form-horizontal">
+                                            <div id="review">
+                                                <div>
+                                                    <table class="table table-striped table-bordered">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td style="width: 50%;"><strong><span>هاروی</span></strong></td>
+                                                                <td class="text-right"><span>1395/1/20</span></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td colspan="2">
+                                                                    <p>ارائه راهکارها و شرایط سخت تایپ به پایان رسد وزمان مورد نیاز شامل حروفچینی دستاوردهای اصلی و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.</p>
+                                                                    <div class="rating"> <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span> </div>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <table class="table table-striped table-bordered">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td style="width: 50%;"><strong><span>اندرسون</span></strong></td>
+                                                                <td class="text-right"><span>1395/1/20</span></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td colspan="2">
+                                                                    <p>ارائه راهکارها و شرایط سخت تایپ به پایان رسد وزمان مورد نیاز شامل حروفچینی دستاوردهای اصلی و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.</p>
+                                                                    <div class="rating"> <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span> </div>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div class="text-right"></div>
+                                            </div>
+                                            <h2>یک بررسی بنویسید</h2>
+                                            <div class="form-group required">
+                                                <div class="col-sm-12">
+                                                    <label for="input-name" class="control-label">نام شما</label>
+                                                    <input type="text" class="form-control" id="input-name" value="" name="name">
+                                                </div>
+                                            </div>
+                                            <div class="form-group required">
+                                                <div class="col-sm-12">
+                                                    <label for="input-review" class="control-label">بررسی شما</label>
+                                                    <textarea class="form-control" id="input-review" rows="5" name="text"></textarea>
+                                                    <div class="help-block"><span class="text-danger">توجه :</span> HTML بازگردانی نخواهد شد!</div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group required">
+                                                <div class="col-sm-12">
+                                                    <label class="control-label">رتبه</label>
+                                                    &nbsp;&nbsp;&nbsp; بد&nbsp;
+                                                    <input type="radio" value="1" name="rating">
+                                                    &nbsp;
+                                                    <input type="radio" value="2" name="rating">
+                                                    &nbsp;
+                                                    <input type="radio" value="3" name="rating">
+                                                    &nbsp;
+                                                    <input type="radio" value="4" name="rating">
+                                                    &nbsp;
+                                                    <input type="radio" value="5" name="rating">
+                                                    &nbsp;خوب
+                                                </div>
+                                            </div>
+                                            <div class="buttons">
+                                                <div class="pull-right">
+                                                    <button class="btn btn-primary" id="button-review" type="button">ادامه</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                @if (((List<ProductDto>)ViewBag.Relateds).Count != 0)
+                                {
+                                    <h3 class="subtitle">محصولات مرتبط</h3>
+                                    <div class="owl-carousel related_pro">
+                                        @foreach (ProductDto prodRel in ViewBag.Relateds)
+                                        {
+                                            var picPath = prodRel.ProductPictures.FirstOrDefault().FilePath;
+                                            var picId = prodRel.ProductPictures.Where(p => p.IsMainPicture == true).FirstOrDefault().Id.ToString();
+                                            var prodRelProductSummary = prodRel.Summary;
+
+
+                                            <div class="product-thumb">
+                                                <div class="image"><a href="@Url.Action("ProductDetails", new { area="Store", controller="Home", id=prodRel.Id })"><img src="@Url.Content(picPath)" alt="@prodRelProductSummary" title="@prodRelProductSummary" class="img-responsive" /></a></div>
+                                                <div class="caption">
+                                                    <h4><a href="@Url.Action("ProductDetails", new { area="Store", controller="Home", id=prodRel.Id })">@prodRelProductSummary</a></h4>
+                                                    <p class="price">
+                                                        @if (prodRel.IsAvailable)
+                                                        {
+                                                            <span class="price-new">@prodRel.LastPriceWithDiscount.ToString("0.") تومان</span>
+
+                                                            if (prodRel.HasDiscount)
+                                                            {
+                                                                <span class="price-old">@prodRel.LastPriceWithoutDiscount.ToString("0.") تومان</span>
+                                                                <span class="saving">%@prodRel.DiscountInPercent.ToString()</span>
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            <span class="nostock">ناموجود</span>
+                                                        }
+
+                                                    </p>
+                                                    <div class="rating"> <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span> </div>
+                                                </div>
+                                                <div class="button-group">
+                                                    @if (prodRel.IsAvailable)
+                                                    {
+                                                        @Html.ActionLink("افزودن به سبد", "ProductDetails", new { area = "Store", controller = "Home", id = prodRel.Id }, new { @class = "btn btn-primary" })
+                                                    }
+                                                    <div class="add-to-links">
+                                                        <button type="button" data-toggle="tooltip" title="افزودن به علاقه مندی" onClick=""><i class="fa fa-heart"></i></button>
+                                                        <button type="button" data-toggle="tooltip" title="افزودن به مقایسه" onClick=""><i class="fa fa-exchange"></i></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                }
+
+                            </div>
+                        </div>
+                        <!--Middle Part End -->
+                        <!--Right Part Start -->
+                        <aside id="column-right" class="col-sm-3 hidden-xs">
+                            <h3 class="subtitle">پرفروش ها</h3>
+                            <div class="side-item">
+                                @foreach (ProductDto discountProd in (IEnumerable<ProductDto>)ViewBag.MostDiscounted)
+                                {
+                                    var picPath = discountProd.ProductPictures.FirstOrDefault().FilePath;
+                                    var picId = discountProd.ProductPictures.FirstOrDefault(p => p.IsMainPicture == true).Id.ToString();
+                                    var prodSummary = discountProd.Summary;
+
+                                    <div class="product-thumb clearfix">
+                                        <div class="image">
+                                            <a href="@Url.Action("ProductDetails", new { area="Store", controller="Home", id=discountProd.Id })">
+                                                <img src="@Url.Content(@picPath)" alt="@prodSummary" title="@prodSummary" class="img-responsive" @*style="display:block;width:100%;height:200px;"*@ />
+                                            </a>
+                                        </div>
+                                        <div class="caption">
+                                            <h4><a href="@Url.Action("ProductDetails", new { area="Store", controller="Home", id=discountProd.Id })">@prodSummary</a></h4>
+                                            <p class="price">
+                                                @if (discountProd.IsAvailable)
+                                                {
+                                                    <span class="price-new">@discountProd.LastPriceWithDiscount.ToString("0.") تومان</span>
+
+                                                    if (discountProd.HasDiscount)
+                                                    {
+                                                        <span class="price-old">@discountProd.LastPriceWithoutDiscount.ToString("0.") تومان</span>
+                                                        <span class="saving">%@discountProd.DiscountInPercent.ToString()</span>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <span class="nostock">ناموجود</span>
+                                                }
+                                            </p>
+
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                            @*<div class="list-group">
+                                    <h3 class="subtitle">محتوای سفارشی</h3>
+                                    <p>این یک بلاک محتواست. هر نوع محتوایی شامل html، نوشته یا تصویر را میتوانید در آن قرار دهید. </p>
+                                    <p> در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها و شرایط سخت تایپ به پایان رسد وزمان مورد نیاز شامل حروفچینی دستاوردهای اصلی و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد. </p>
+                                    <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</p>
+                                </div>*@
+                        </aside>
+                        <!--Right Part End -->
+                    </div>
+                </div>
+            </div>
+
+            @section elevateZoom_orientationchange_swipebox
+{
+                <script type="text/javascript" src="~/Content/MarketShop/js/jquery.elevateZoom-3.0.8.min.js"></script>
+                <script type="text/javascript" src="~/Content/MarketShop/js/swipebox/lib/ios-orientationchange-fix.js"></script>
+                <script type="text/javascript" src="~/Content/MarketShop/js/swipebox/src/js/jquery.swipebox.min.js"></script>
+            }
+
+            @section ElevateZoomforProductPageimage_PassTheImagesToSwipebox
+{
+                <script type="text/javascript">
+                    // Elevate Zoom for Product Page image
+                    $("#zoom_01").elevateZoom({
+                        gallery: 'gallery_01',
+                        cursor: 'pointer',
+                        galleryActiveClass: 'active',
+                        imageCrossfade: true,
+                        zoomWindowFadeIn: 500,
+                        zoomWindowFadeOut: 500,
+                        zoomWindowPosition: 11,
+                        lensFadeIn: 500,
+                        lensFadeOut: 500,
+                        loadingIcon: 'image/progress.gif'
+                    });
+                    //////pass the images to swipebox
+                    $("#zoom_01").bind("click", function (e) {
+                        var ez = $('#zoom_01').data('elevateZoom');
+                        $.swipebox(ez.getGalleryList());
+                        return false;
+                    });
+                </script>
+            }
+
+<script src="~/Scripts/KuffJavaScripts/Areas/Store/ProductDetails.js"></script>
+

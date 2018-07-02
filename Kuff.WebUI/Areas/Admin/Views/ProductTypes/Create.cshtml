@@ -1,0 +1,73 @@
+﻿@using Kuff.Common.DTOs.ProductRelated
+@model Kuff.Common.DTOs.ProductRelated.ProductTypeDto
+
+
+    <script src="~/Scripts/KuffJavaScripts/Areas/Admin/ProductTypes/Create.js"></script>
+
+    <h2 dir="rtl">مشخصات نوع محصول</h2>
+    <br />
+    <br />
+
+    @if (ViewBag.Success == true)
+    {
+        <span class="lead" style="display:block" dir="rtl">نوع محصول اضافه شد</span>
+    }
+
+    @Html.ValidationSummary()
+
+    @using (Html.BeginForm("Create", "ProductTypes", FormMethod.Post))
+    {
+        <div class="row" dir="rtl">
+            <div class="col-md-4" style="float:right">
+                <div class="panel panel-default">
+                    <div class="panel-heading text-center">نام و دسته نوع محصول</div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            @Html.LabelFor(p => p.Title, new { dir="rtl"})
+                            @Html.TextBoxFor(p => p.Title, new { @class = "form-control", dir = "rtl" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(p => p.CategoryName, new { dir = "rtl", @for= "CategoryId" })
+                            @Html.DropDownListFor(p => p.CategoryId, (IEnumerable<SelectListItem>)ViewBag.Categories, "دسته بندی مورد نظر را انتخاب کنید", new { @class = "form-control", dir = "rtl" })
+                        </div>
+                        <div class="form-group">
+                            @Html.Label("Comments", "توضیحات", new { style = "margin-top:10px;", dir = "rtl" })
+                            @Html.TextAreaFor(p => p.Comments, new { @class = "form-control", style = "margin-top:5px;", dir = "rtl" })
+                        </div>
+                        <div class="text-center">
+                            <button id="addProperty" class="btn btn-success btn-block" type="button" style="margin-top:20px;margin-bottom:5px;">اضافه کردن خصیصه</button>
+                            <button id="removeProperty" class="btn btn-danger btn-block" type="button" style="margin-bottom:20px;">حذف کردن خصیصه</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="defaultPropertyContainer">
+                    <div id="propertiesPanel" class="panel panel-default">
+                        <div class="panel-heading" dir="rtl">خصیصه شماره 1</div>
+                        <div class="panel-body">
+                            <div class="form-group">
+                                @Html.Label("ProductTypeProperties[0].Title", "عنوان خصیصه شماره 1")
+                                @Html.TextBox("ProductTypeProperties[0].Title", "عنوان محصول", new { @readonly = "readonly", @class = "form-control", style = "margin-top:5px;", dir = "rtl" })
+                                @Html.Label("ProductTypeProperties[0].DataTypeId", "نوع داده ای", new { style = "margin-top:10px;" })
+                                @Html.DropDownList("ProductTypeProperties[0].DataTypeId", (ViewBag.DefaultPropertyDataType) as IEnumerable<SelectListItem>, new { @readonly = "readonly", @class = "form-control", style = "margin-top:5px;margin-bottom:5px", dir = "rtl" })
+                                @Html.Label("ProductTypeProperties[0].IsUserDecision", "کاربر باید مقدار خصیصه را مشخص کند ؟")
+                                @Html.DropDownList("ProductTypeProperties[0].IsUserDecision", new SelectListItem[] { new SelectListItem { Text = "خیر", Value = false.ToString(), Selected = true } }, new { @readonly = "readonly", @class = "form-control", style = "margin-top:5px;", dir = "rtl" })
+                                @Html.Hidden("ProductTypeProperties[0].OrderNumber", 0)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="addedPropertiesContainer">
+
+                </div>
+
+
+                <div class="text-center">
+                    <input type="submit" class="btn btn-primary" value="Create" />
+                    @Html.ActionLink("Cancel", "Create", new { Controller = "ProductTypes" }, new { @class = "btn btn-danger" })
+                </div>
+            </div>
+        </div>
+    }
+

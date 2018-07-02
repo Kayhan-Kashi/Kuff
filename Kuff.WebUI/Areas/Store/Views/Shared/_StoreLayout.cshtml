@@ -1,0 +1,23 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@RenderSection("scripts", false)
+
+@section swipeBox_min
+{
+    @RenderSection("swipeBox_min", false)
+}
+
+
+@RenderBody()
+
+@section elevateZoom_orientationchange_swipebox
+{
+    @RenderSection("elevateZoom_orientationchange_swipebox", false)
+}
+
+@section ElevateZoomforProductPageimage_PassTheImagesToSwipebox
+{
+    @RenderSection("ElevateZoomforProductPageimage_PassTheImagesToSwipebox", false)
+}

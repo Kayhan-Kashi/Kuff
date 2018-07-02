@@ -1,0 +1,153 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B90E6F6A-73A9-4E30-9671-76DE5DE10D78}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Kuff.Dal</RootNamespace>
+    <AssemblyName>Kuff.Dal</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoMapper, Version=6.2.2.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.6.2.2\lib\net45\AutoMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity, Version=2.1.505.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.2.1.505.0\lib\NET35\Microsoft.Practices.Unity.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Configuration, Version=2.1.505.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.2.1.505.0\lib\NET35\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PersianDateTime, Version=1.1.5082.36395, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\PersianDateTime.1.1.5082.36395\lib\net40\PersianDateTime.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DataModel\OrderRelated\Order.cs" />
+    <Compile Include="DataModel\OrderRelated\OrderItem.cs" />
+    <Compile Include="DataModel\OrderRelated\OrderItemSpecification.cs" />
+    <Compile Include="DataModel\OrderRelated\Payment.cs" />
+    <Compile Include="DataModel\OrderRelated\PaymentMethod.cs" />
+    <Compile Include="DataModel\OrderRelated\ShipmentCost.cs" />
+    <Compile Include="DataModel\OrderRelated\ShipmentMethod.cs" />
+    <Compile Include="DataModel\ProductRelated\Category.cs" />
+    <Compile Include="DataModel\ProductRelated\DataType.cs" />
+    <Compile Include="DataModel\ProductRelated\Product.cs" />
+    <Compile Include="DataModel\ProductRelated\ProductAvailability.cs" />
+    <Compile Include="DataModel\ProductRelated\ProductPicture.cs" />
+    <Compile Include="DataModel\ProductRelated\ProductPrice.cs" />
+    <Compile Include="DataModel\ProductRelated\ProductPropertyValue.cs" />
+    <Compile Include="DataModel\ProductRelated\ProductType.cs" />
+    <Compile Include="DataModel\ProductRelated\ProductTypeProperty.cs" />
+    <Compile Include="EFMappings\EntityTypeConfigs.cs" />
+    <Compile Include="IocContainer\DalIocConfigurator.cs" />
+    <Compile Include="KuffEntities.cs" />
+    <Compile Include="Migrations\201806291151341_Initialize.cs" />
+    <Compile Include="Migrations\201806291151341_Initialize.Designer.cs">
+      <DependentUpon>201806291151341_Initialize.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807010954472_OrderItem Decription.cs" />
+    <Compile Include="Migrations\201807010954472_OrderItem Decription.Designer.cs">
+      <DependentUpon>201807010954472_OrderItem Decription.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\AccountRelated\UserRepository.cs" />
+    <Compile Include="Repositories\OrderRelated\OrderRepository.cs" />
+    <Compile Include="Repositories\OrderRelated\PaymentMethodRepository.cs" />
+    <Compile Include="Repositories\OrderRelated\ShipmentCostRepository.cs" />
+    <Compile Include="Repositories\OrderRelated\ShipmentMethodRepository.cs" />
+    <Compile Include="Repositories\ProductRelated\CategoryRepository.cs" />
+    <Compile Include="Repositories\ProductRelated\DataTypeRepository.cs" />
+    <Compile Include="Repositories\ProductRelated\ProductAvailabilityRepository.cs" />
+    <Compile Include="Repositories\ProductRelated\ProductPictureRepository.cs" />
+    <Compile Include="Repositories\ProductRelated\ProductPriceRepository.cs" />
+    <Compile Include="Repositories\ProductRelated\ProductPropertyValueRepository.cs" />
+    <Compile Include="Repositories\ProductRelated\ProductRepository.cs" />
+    <Compile Include="Repositories\ProductRelated\ProductTypeRepository.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Kuff.Common\Kuff.Common.csproj">
+      <Project>{ba4aee3f-5155-44df-b105-6a1222e35246}</Project>
+      <Name>Kuff.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DataModel\AccountRelated\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201806291151341_Initialize.resx">
+      <DependentUpon>201806291151341_Initialize.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807010954472_OrderItem Decription.resx">
+      <DependentUpon>201807010954472_OrderItem Decription.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

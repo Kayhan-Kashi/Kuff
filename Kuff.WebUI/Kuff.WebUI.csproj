@@ -1,0 +1,1079 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{E3E5AF75-0D4B-48F3-BEB3-EA0D40AFC9C0}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Kuff.WebUI</RootNamespace>
+    <AssemblyName>Kuff.WebUI</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <WebGreaseLibPath>..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.4.1.9004, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Owin, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.4.0.0\lib\net451\Microsoft.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.4.0.0\lib\net451\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.2.1.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.2.1.0\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.2.1.0\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common, Version=5.0.505.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\EnterpriseLibrary.Common.5.0.505.0\lib\NET35\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity, Version=2.1.505.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.2.1.505.0\lib\NET35\Microsoft.Practices.Unity.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Configuration, Version=2.1.505.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.2.1.505.0\lib\NET35\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Interception, Version=2.1.505.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.Interception.2.1.505.0\lib\NET35\Microsoft.Practices.Unity.Interception.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Interception.Configuration, Version=2.1.505.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.Interception.2.1.505.0\lib\NET35\Microsoft.Practices.Unity.Interception.Configuration.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.5.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Unity.Abstractions, Version=3.3.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f" />
+    <Reference Include="WebGrease, Version=1.5.2.14234, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Web.Razor">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Webpages">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.2.3\lib\net45\System.Web.Webpages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Webpages.Deployment">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.2.3\lib\net45\System.Web.Webpages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Webpages.Razor">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.2.3\lib\net45\System.Web.Webpages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Helpers">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\MarketShop\css\font-awesome\css\font-awesome.css" />
+    <Content Include="Content\MarketShop\css\font-awesome\css\font-awesome.min.css" />
+    <Content Include="Content\MarketShop\css\font-awesome\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\MarketShop\css\owl.carousel.css" />
+    <Content Include="Content\MarketShop\css\owl.transitions.css" />
+    <Content Include="Content\MarketShop\css\responsive-rtl.css" />
+    <Content Include="Content\MarketShop\css\responsive.css" />
+    <Content Include="Content\MarketShop\css\stylesheet-rtl.css" />
+    <Content Include="Content\MarketShop\css\stylesheet-skin2.css" />
+    <Content Include="Content\MarketShop\css\stylesheet-skin3.css" />
+    <Content Include="Content\MarketShop\css\stylesheet-skin4.css" />
+    <Content Include="Content\MarketShop\css\stylesheet.css" />
+    <Content Include="Content\MarketShop\image\banner\cms-block.jpg" />
+    <Content Include="Content\MarketShop\image\banner\responsive.jpg" />
+    <Content Include="Content\MarketShop\image\banner\sample-banner-1-300X300.jpg" />
+    <Content Include="Content\MarketShop\image\banner\sample-banner-1-400x200.jpg" />
+    <Content Include="Content\MarketShop\image\banner\sample-banner-2-300X300.jpg" />
+    <Content Include="Content\MarketShop\image\banner\sample-banner-2-400x200.jpg" />
+    <Content Include="Content\MarketShop\image\banner\sample-banner-3-300X300.jpg" />
+    <Content Include="Content\MarketShop\image\banner\sample-banner-3-400x200.jpg" />
+    <Content Include="Content\MarketShop\image\banner\sample-banner-4-300X300.jpg" />
+    <Content Include="Content\MarketShop\image\banner\sample-banner-4-400x150.jpg" />
+    <Content Include="Content\MarketShop\image\banner\sample-banner-4-600X250.jpg" />
+    <Content Include="Content\MarketShop\image\banner\sample-banner-5-400x150.jpg" />
+    <Content Include="Content\MarketShop\image\banner\sample-banner-5-600X250.jpg" />
+    <Content Include="Content\MarketShop\image\banner\small-banner-265x350.jpg" />
+    <Content Include="Content\MarketShop\image\banner\small-banner1-265x350.jpg" />
+    <Content Include="Content\MarketShop\image\bullet-dark-rtl.png" />
+    <Content Include="Content\MarketShop\image\bullet-dark.png" />
+    <Content Include="Content\MarketShop\image\favicon.png" />
+    <Content Include="Content\MarketShop\image\flags\ad.png" />
+    <Content Include="Content\MarketShop\image\flags\ae.png" />
+    <Content Include="Content\MarketShop\image\flags\af.png" />
+    <Content Include="Content\MarketShop\image\flags\ag.png" />
+    <Content Include="Content\MarketShop\image\flags\ai.png" />
+    <Content Include="Content\MarketShop\image\flags\al.png" />
+    <Content Include="Content\MarketShop\image\flags\am.png" />
+    <Content Include="Content\MarketShop\image\flags\an.png" />
+    <Content Include="Content\MarketShop\image\flags\ao.png" />
+    <Content Include="Content\MarketShop\image\flags\ar.png" />
+    <Content Include="Content\MarketShop\image\flags\as.png" />
+    <Content Include="Content\MarketShop\image\flags\at.png" />
+    <Content Include="Content\MarketShop\image\flags\au.png" />
+    <Content Include="Content\MarketShop\image\flags\aw.png" />
+    <Content Include="Content\MarketShop\image\flags\ax.png" />
+    <Content Include="Content\MarketShop\image\flags\az.png" />
+    <Content Include="Content\MarketShop\image\flags\ba.png" />
+    <Content Include="Content\MarketShop\image\flags\bb.png" />
+    <Content Include="Content\MarketShop\image\flags\bd.png" />
+    <Content Include="Content\MarketShop\image\flags\be.png" />
+    <Content Include="Content\MarketShop\image\flags\bf.png" />
+    <Content Include="Content\MarketShop\image\flags\bg.png" />
+    <Content Include="Content\MarketShop\image\flags\bh.png" />
+    <Content Include="Content\MarketShop\image\flags\bi.png" />
+    <Content Include="Content\MarketShop\image\flags\bj.png" />
+    <Content Include="Content\MarketShop\image\flags\bm.png" />
+    <Content Include="Content\MarketShop\image\flags\bn.png" />
+    <Content Include="Content\MarketShop\image\flags\bo.png" />
+    <Content Include="Content\MarketShop\image\flags\br.png" />
+    <Content Include="Content\MarketShop\image\flags\bs.png" />
+    <Content Include="Content\MarketShop\image\flags\bt.png" />
+    <Content Include="Content\MarketShop\image\flags\bv.png" />
+    <Content Include="Content\MarketShop\image\flags\bw.png" />
+    <Content Include="Content\MarketShop\image\flags\by.png" />
+    <Content Include="Content\MarketShop\image\flags\bz.png" />
+    <Content Include="Content\MarketShop\image\flags\ca.png" />
+    <Content Include="Content\MarketShop\image\flags\cc.png" />
+    <Content Include="Content\MarketShop\image\flags\cd.png" />
+    <Content Include="Content\MarketShop\image\flags\cf.png" />
+    <Content Include="Content\MarketShop\image\flags\cg.png" />
+    <Content Include="Content\MarketShop\image\flags\ch.png" />
+    <Content Include="Content\MarketShop\image\flags\ci.png" />
+    <Content Include="Content\MarketShop\image\flags\ck.png" />
+    <Content Include="Content\MarketShop\image\flags\cl.png" />
+    <Content Include="Content\MarketShop\image\flags\cm.png" />
+    <Content Include="Content\MarketShop\image\flags\cn.png" />
+    <Content Include="Content\MarketShop\image\flags\co.png" />
+    <Content Include="Content\MarketShop\image\flags\cr.png" />
+    <Content Include="Content\MarketShop\image\flags\cs.png" />
+    <Content Include="Content\MarketShop\image\flags\cu.png" />
+    <Content Include="Content\MarketShop\image\flags\cv.png" />
+    <Content Include="Content\MarketShop\image\flags\cx.png" />
+    <Content Include="Content\MarketShop\image\flags\cy.png" />
+    <Content Include="Content\MarketShop\image\flags\cz.png" />
+    <Content Include="Content\MarketShop\image\flags\de.png" />
+    <Content Include="Content\MarketShop\image\flags\dj.png" />
+    <Content Include="Content\MarketShop\image\flags\dk.png" />
+    <Content Include="Content\MarketShop\image\flags\dm.png" />
+    <Content Include="Content\MarketShop\image\flags\do.png" />
+    <Content Include="Content\MarketShop\image\flags\dz.png" />
+    <Content Include="Content\MarketShop\image\flags\ec.png" />
+    <Content Include="Content\MarketShop\image\flags\ee.png" />
+    <Content Include="Content\MarketShop\image\flags\eg.png" />
+    <Content Include="Content\MarketShop\image\flags\eh.png" />
+    <Content Include="Content\MarketShop\image\flags\england.png" />
+    <Content Include="Content\MarketShop\image\flags\er.png" />
+    <Content Include="Content\MarketShop\image\flags\es.png" />
+    <Content Include="Content\MarketShop\image\flags\et.png" />
+    <Content Include="Content\MarketShop\image\flags\fam.png" />
+    <Content Include="Content\MarketShop\image\flags\fi.png" />
+    <Content Include="Content\MarketShop\image\flags\fj.png" />
+    <Content Include="Content\MarketShop\image\flags\fk.png" />
+    <Content Include="Content\MarketShop\image\flags\fm.png" />
+    <Content Include="Content\MarketShop\image\flags\fo.png" />
+    <Content Include="Content\MarketShop\image\flags\fr.png" />
+    <Content Include="Content\MarketShop\image\flags\ga.png" />
+    <Content Include="Content\MarketShop\image\flags\gb.png" />
+    <Content Include="Content\MarketShop\image\flags\gd.png" />
+    <Content Include="Content\MarketShop\image\flags\ge.png" />
+    <Content Include="Content\MarketShop\image\flags\gh.png" />
+    <Content Include="Content\MarketShop\image\flags\gi.png" />
+    <Content Include="Content\MarketShop\image\flags\gl.png" />
+    <Content Include="Content\MarketShop\image\flags\gm.png" />
+    <Content Include="Content\MarketShop\image\flags\gn.png" />
+    <Content Include="Content\MarketShop\image\flags\gp.png" />
+    <Content Include="Content\MarketShop\image\flags\gq.png" />
+    <Content Include="Content\MarketShop\image\flags\gr.png" />
+    <Content Include="Content\MarketShop\image\flags\gs.png" />
+    <Content Include="Content\MarketShop\image\flags\gt.png" />
+    <Content Include="Content\MarketShop\image\flags\gu.png" />
+    <Content Include="Content\MarketShop\image\flags\gw.png" />
+    <Content Include="Content\MarketShop\image\flags\gy.png" />
+    <Content Include="Content\MarketShop\image\flags\hk.png" />
+    <Content Include="Content\MarketShop\image\flags\hn.png" />
+    <Content Include="Content\MarketShop\image\flags\hr.png" />
+    <Content Include="Content\MarketShop\image\flags\ht.png" />
+    <Content Include="Content\MarketShop\image\flags\hu.png" />
+    <Content Include="Content\MarketShop\image\flags\id.png" />
+    <Content Include="Content\MarketShop\image\flags\ie.png" />
+    <Content Include="Content\MarketShop\image\flags\il.png" />
+    <Content Include="Content\MarketShop\image\flags\in.png" />
+    <Content Include="Content\MarketShop\image\flags\io.png" />
+    <Content Include="Content\MarketShop\image\flags\iq.png" />
+    <Content Include="Content\MarketShop\image\flags\ir.png" />
+    <Content Include="Content\MarketShop\image\flags\is.png" />
+    <Content Include="Content\MarketShop\image\flags\it.png" />
+    <Content Include="Content\MarketShop\image\flags\jm.png" />
+    <Content Include="Content\MarketShop\image\flags\jo.png" />
+    <Content Include="Content\MarketShop\image\flags\jp.png" />
+    <Content Include="Content\MarketShop\image\flags\ke.png" />
+    <Content Include="Content\MarketShop\image\flags\kg.png" />
+    <Content Include="Content\MarketShop\image\flags\kh.png" />
+    <Content Include="Content\MarketShop\image\flags\ki.png" />
+    <Content Include="Content\MarketShop\image\flags\km.png" />
+    <Content Include="Content\MarketShop\image\flags\kn.png" />
+    <Content Include="Content\MarketShop\image\flags\kp.png" />
+    <Content Include="Content\MarketShop\image\flags\kr.png" />
+    <Content Include="Content\MarketShop\image\flags\kw.png" />
+    <Content Include="Content\MarketShop\image\flags\ky.png" />
+    <Content Include="Content\MarketShop\image\flags\kz.png" />
+    <Content Include="Content\MarketShop\image\flags\la.png" />
+    <Content Include="Content\MarketShop\image\flags\lb.png" />
+    <Content Include="Content\MarketShop\image\flags\lc.png" />
+    <Content Include="Content\MarketShop\image\flags\li.png" />
+    <Content Include="Content\MarketShop\image\flags\lk.png" />
+    <Content Include="Content\MarketShop\image\flags\lr.png" />
+    <Content Include="Content\MarketShop\image\flags\ls.png" />
+    <Content Include="Content\MarketShop\image\flags\lt.png" />
+    <Content Include="Content\MarketShop\image\flags\lu.png" />
+    <Content Include="Content\MarketShop\image\flags\lv.png" />
+    <Content Include="Content\MarketShop\image\flags\ly.png" />
+    <Content Include="Content\MarketShop\image\flags\ma.png" />
+    <Content Include="Content\MarketShop\image\flags\mc.png" />
+    <Content Include="Content\MarketShop\image\flags\md.png" />
+    <Content Include="Content\MarketShop\image\flags\mg.png" />
+    <Content Include="Content\MarketShop\image\flags\mh.png" />
+    <Content Include="Content\MarketShop\image\flags\mk.png" />
+    <Content Include="Content\MarketShop\image\flags\ml.png" />
+    <Content Include="Content\MarketShop\image\flags\mm.png" />
+    <Content Include="Content\MarketShop\image\flags\mn.png" />
+    <Content Include="Content\MarketShop\image\flags\mo.png" />
+    <Content Include="Content\MarketShop\image\flags\mp.png" />
+    <Content Include="Content\MarketShop\image\flags\mq.png" />
+    <Content Include="Content\MarketShop\image\flags\mr.png" />
+    <Content Include="Content\MarketShop\image\flags\ms.png" />
+    <Content Include="Content\MarketShop\image\flags\mt.png" />
+    <Content Include="Content\MarketShop\image\flags\mu.png" />
+    <Content Include="Content\MarketShop\image\flags\mv.png" />
+    <Content Include="Content\MarketShop\image\flags\mw.png" />
+    <Content Include="Content\MarketShop\image\flags\mx.png" />
+    <Content Include="Content\MarketShop\image\flags\my.png" />
+    <Content Include="Content\MarketShop\image\flags\mz.png" />
+    <Content Include="Content\MarketShop\image\flags\na.png" />
+    <Content Include="Content\MarketShop\image\flags\nc.png" />
+    <Content Include="Content\MarketShop\image\flags\ne.png" />
+    <Content Include="Content\MarketShop\image\flags\nf.png" />
+    <Content Include="Content\MarketShop\image\flags\ng.png" />
+    <Content Include="Content\MarketShop\image\flags\ni.png" />
+    <Content Include="Content\MarketShop\image\flags\nl.png" />
+    <Content Include="Content\MarketShop\image\flags\no.png" />
+    <Content Include="Content\MarketShop\image\flags\np.png" />
+    <Content Include="Content\MarketShop\image\flags\nr.png" />
+    <Content Include="Content\MarketShop\image\flags\nu.png" />
+    <Content Include="Content\MarketShop\image\flags\nz.png" />
+    <Content Include="Content\MarketShop\image\flags\om.png" />
+    <Content Include="Content\MarketShop\image\flags\pa.png" />
+    <Content Include="Content\MarketShop\image\flags\pe.png" />
+    <Content Include="Content\MarketShop\image\flags\pf.png" />
+    <Content Include="Content\MarketShop\image\flags\pg.png" />
+    <Content Include="Content\MarketShop\image\flags\ph.png" />
+    <Content Include="Content\MarketShop\image\flags\pk.png" />
+    <Content Include="Content\MarketShop\image\flags\pl.png" />
+    <Content Include="Content\MarketShop\image\flags\pm.png" />
+    <Content Include="Content\MarketShop\image\flags\pn.png" />
+    <Content Include="Content\MarketShop\image\flags\pr.png" />
+    <Content Include="Content\MarketShop\image\flags\ps.png" />
+    <Content Include="Content\MarketShop\image\flags\pt.png" />
+    <Content Include="Content\MarketShop\image\flags\pw.png" />
+    <Content Include="Content\MarketShop\image\flags\py.png" />
+    <Content Include="Content\MarketShop\image\flags\qa.png" />
+    <Content Include="Content\MarketShop\image\flags\ro.png" />
+    <Content Include="Content\MarketShop\image\flags\ru.png" />
+    <Content Include="Content\MarketShop\image\flags\rw.png" />
+    <Content Include="Content\MarketShop\image\flags\sa.png" />
+    <Content Include="Content\MarketShop\image\flags\sb.png" />
+    <Content Include="Content\MarketShop\image\flags\sc.png" />
+    <Content Include="Content\MarketShop\image\flags\scotland.png" />
+    <Content Include="Content\MarketShop\image\flags\sd.png" />
+    <Content Include="Content\MarketShop\image\flags\se.png" />
+    <Content Include="Content\MarketShop\image\flags\sg.png" />
+    <Content Include="Content\MarketShop\image\flags\sh.png" />
+    <Content Include="Content\MarketShop\image\flags\si.png" />
+    <Content Include="Content\MarketShop\image\flags\sk.png" />
+    <Content Include="Content\MarketShop\image\flags\sl.png" />
+    <Content Include="Content\MarketShop\image\flags\sm.png" />
+    <Content Include="Content\MarketShop\image\flags\sn.png" />
+    <Content Include="Content\MarketShop\image\flags\so.png" />
+    <Content Include="Content\MarketShop\image\flags\sr.png" />
+    <Content Include="Content\MarketShop\image\flags\st.png" />
+    <Content Include="Content\MarketShop\image\flags\sv.png" />
+    <Content Include="Content\MarketShop\image\flags\sy.png" />
+    <Content Include="Content\MarketShop\image\flags\sz.png" />
+    <Content Include="Content\MarketShop\image\flags\tc.png" />
+    <Content Include="Content\MarketShop\image\flags\td.png" />
+    <Content Include="Content\MarketShop\image\flags\tf.png" />
+    <Content Include="Content\MarketShop\image\flags\tg.png" />
+    <Content Include="Content\MarketShop\image\flags\th.png" />
+    <Content Include="Content\MarketShop\image\flags\tj.png" />
+    <Content Include="Content\MarketShop\image\flags\tk.png" />
+    <Content Include="Content\MarketShop\image\flags\tl.png" />
+    <Content Include="Content\MarketShop\image\flags\tm.png" />
+    <Content Include="Content\MarketShop\image\flags\tn.png" />
+    <Content Include="Content\MarketShop\image\flags\to.png" />
+    <Content Include="Content\MarketShop\image\flags\tr.png" />
+    <Content Include="Content\MarketShop\image\flags\tt.png" />
+    <Content Include="Content\MarketShop\image\flags\tv.png" />
+    <Content Include="Content\MarketShop\image\flags\tw.png" />
+    <Content Include="Content\MarketShop\image\flags\tz.png" />
+    <Content Include="Content\MarketShop\image\flags\ua.png" />
+    <Content Include="Content\MarketShop\image\flags\ug.png" />
+    <Content Include="Content\MarketShop\image\flags\um.png" />
+    <Content Include="Content\MarketShop\image\flags\us.png" />
+    <Content Include="Content\MarketShop\image\flags\uy.png" />
+    <Content Include="Content\MarketShop\image\flags\uz.png" />
+    <Content Include="Content\MarketShop\image\flags\va.png" />
+    <Content Include="Content\MarketShop\image\flags\vc.png" />
+    <Content Include="Content\MarketShop\image\flags\ve.png" />
+    <Content Include="Content\MarketShop\image\flags\vg.png" />
+    <Content Include="Content\MarketShop\image\flags\vi.png" />
+    <Content Include="Content\MarketShop\image\flags\vn.png" />
+    <Content Include="Content\MarketShop\image\flags\vu.png" />
+    <Content Include="Content\MarketShop\image\flags\wales.png" />
+    <Content Include="Content\MarketShop\image\flags\wf.png" />
+    <Content Include="Content\MarketShop\image\flags\ws.png" />
+    <Content Include="Content\MarketShop\image\flags\ye.png" />
+    <Content Include="Content\MarketShop\image\flags\yt.png" />
+    <Content Include="Content\MarketShop\image\flags\za.png" />
+    <Content Include="Content\MarketShop\image\flags\zm.png" />
+    <Content Include="Content\MarketShop\image\flags\zw.png" />
+    <Content Include="Content\MarketShop\image\grabbing.png" />
+    <Content Include="Content\MarketShop\image\logo-small.png" />
+    <Content Include="Content\MarketShop\image\logo.png" />
+    <Content Include="Content\MarketShop\image\no_image.jpg" />
+    <Content Include="Content\MarketShop\image\patterns\1.png" />
+    <Content Include="Content\MarketShop\image\patterns\10.png" />
+    <Content Include="Content\MarketShop\image\patterns\11.png" />
+    <Content Include="Content\MarketShop\image\patterns\12.png" />
+    <Content Include="Content\MarketShop\image\patterns\13.png" />
+    <Content Include="Content\MarketShop\image\patterns\14.png" />
+    <Content Include="Content\MarketShop\image\patterns\15.png" />
+    <Content Include="Content\MarketShop\image\patterns\16.png" />
+    <Content Include="Content\MarketShop\image\patterns\17.png" />
+    <Content Include="Content\MarketShop\image\patterns\18.png" />
+    <Content Include="Content\MarketShop\image\patterns\19.png" />
+    <Content Include="Content\MarketShop\image\patterns\2.png" />
+    <Content Include="Content\MarketShop\image\patterns\20.png" />
+    <Content Include="Content\MarketShop\image\patterns\21.png" />
+    <Content Include="Content\MarketShop\image\patterns\22.png" />
+    <Content Include="Content\MarketShop\image\patterns\23.png" />
+    <Content Include="Content\MarketShop\image\patterns\24.png" />
+    <Content Include="Content\MarketShop\image\patterns\25.png" />
+    <Content Include="Content\MarketShop\image\patterns\26.png" />
+    <Content Include="Content\MarketShop\image\patterns\27.png" />
+    <Content Include="Content\MarketShop\image\patterns\28.png" />
+    <Content Include="Content\MarketShop\image\patterns\29.png" />
+    <Content Include="Content\MarketShop\image\patterns\3.png" />
+    <Content Include="Content\MarketShop\image\patterns\30.png" />
+    <Content Include="Content\MarketShop\image\patterns\31.png" />
+    <Content Include="Content\MarketShop\image\patterns\32.png" />
+    <Content Include="Content\MarketShop\image\patterns\33.png" />
+    <Content Include="Content\MarketShop\image\patterns\34.png" />
+    <Content Include="Content\MarketShop\image\patterns\35.png" />
+    <Content Include="Content\MarketShop\image\patterns\36.png" />
+    <Content Include="Content\MarketShop\image\patterns\37.png" />
+    <Content Include="Content\MarketShop\image\patterns\38.png" />
+    <Content Include="Content\MarketShop\image\patterns\39.png" />
+    <Content Include="Content\MarketShop\image\patterns\4.png" />
+    <Content Include="Content\MarketShop\image\patterns\40.png" />
+    <Content Include="Content\MarketShop\image\patterns\41.png" />
+    <Content Include="Content\MarketShop\image\patterns\42.png" />
+    <Content Include="Content\MarketShop\image\patterns\43.png" />
+    <Content Include="Content\MarketShop\image\patterns\44.png" />
+    <Content Include="Content\MarketShop\image\patterns\45.png" />
+    <Content Include="Content\MarketShop\image\patterns\46.png" />
+    <Content Include="Content\MarketShop\image\patterns\47.png" />
+    <Content Include="Content\MarketShop\image\patterns\48.png" />
+    <Content Include="Content\MarketShop\image\patterns\49.png" />
+    <Content Include="Content\MarketShop\image\patterns\5.png" />
+    <Content Include="Content\MarketShop\image\patterns\50.png" />
+    <Content Include="Content\MarketShop\image\patterns\51.png" />
+    <Content Include="Content\MarketShop\image\patterns\52.png" />
+    <Content Include="Content\MarketShop\image\patterns\53.png" />
+    <Content Include="Content\MarketShop\image\patterns\6.png" />
+    <Content Include="Content\MarketShop\image\patterns\7.png" />
+    <Content Include="Content\MarketShop\image\patterns\8.png" />
+    <Content Include="Content\MarketShop\image\patterns\9.png" />
+    <Content Include="Content\MarketShop\image\payment\payment_2checkout.png" />
+    <Content Include="Content\MarketShop\image\payment\payment_american.png" />
+    <Content Include="Content\MarketShop\image\payment\payment_cirrus.png" />
+    <Content Include="Content\MarketShop\image\payment\payment_delta.png" />
+    <Content Include="Content\MarketShop\image\payment\payment_direct.png" />
+    <Content Include="Content\MarketShop\image\payment\payment_discover.png" />
+    <Content Include="Content\MarketShop\image\payment\payment_ebay.png" />
+    <Content Include="Content\MarketShop\image\payment\payment_google.png" />
+    <Content Include="Content\MarketShop\image\payment\payment_maestro.png" />
+    <Content Include="Content\MarketShop\image\payment\payment_mastercard.png" />
+    <Content Include="Content\MarketShop\image\payment\payment_moneybookers.png" />
+    <Content Include="Content\MarketShop\image\payment\payment_paypal.png" />
+    <Content Include="Content\MarketShop\image\payment\payment_sagepay.png" />
+    <Content Include="Content\MarketShop\image\payment\payment_solo.png" />
+    <Content Include="Content\MarketShop\image\payment\payment_switch.png" />
+    <Content Include="Content\MarketShop\image\payment\payment_visa.png" />
+    <Content Include="Content\MarketShop\image\payment\payment_western_union.png" />
+    <Content Include="Content\MarketShop\image\plus.png" />
+    <Content Include="Content\MarketShop\image\product\apple_cinema_30-200x200.jpg" />
+    <Content Include="Content\MarketShop\image\product\apple_cinema_30-220x330.jpg" />
+    <Content Include="Content\MarketShop\image\product\apple_cinema_30-50x50.jpg" />
+    <Content Include="Content\MarketShop\image\product\apple_cinema_30-50x75.jpg" />
+    <Content Include="Content\MarketShop\image\product\apple_logo-100x100.jpg" />
+    <Content Include="Content\MarketShop\image\product\apple_logo-60x60.jpg" />
+    <Content Include="Content\MarketShop\image\product\canon_eos_5d_1-200x200.jpg" />
+    <Content Include="Content\MarketShop\image\product\canon_eos_5d_1-220x330.jpg" />
+    <Content Include="Content\MarketShop\image\product\canon_logo-100x100.jpg" />
+    <Content Include="Content\MarketShop\image\product\canon_logo-60x60.jpg" />
+    <Content Include="Content\MarketShop\image\product\FinePix-Long-Zoom-Camera-200x200.jpg" />
+    <Content Include="Content\MarketShop\image\product\FinePix-Long-Zoom-Camera-220x330.jpg" />
+    <Content Include="Content\MarketShop\image\product\FinePix-Long-Zoom-Camera-50x50.jpg" />
+    <Content Include="Content\MarketShop\image\product\FinePix-Long-Zoom-Camera-50x75.jpg" />
+    <Content Include="Content\MarketShop\image\product\hp_2-200x200.jpg" />
+    <Content Include="Content\MarketShop\image\product\hp_2-220x330.jpg" />
+    <Content Include="Content\MarketShop\image\product\hp_3-200x200.jpg" />
+    <Content Include="Content\MarketShop\image\product\hp_3-220x330.jpg" />
+    <Content Include="Content\MarketShop\image\product\hp_logo-60x60.jpg" />
+    <Content Include="Content\MarketShop\image\product\htc_logo-60x60.jpg" />
+    <Content Include="Content\MarketShop\image\product\iphone_1-200x200.jpg" />
+    <Content Include="Content\MarketShop\image\product\iphone_1-220x330.jpg" />
+    <Content Include="Content\MarketShop\image\product\iphone_1-50x50.jpg" />
+    <Content Include="Content\MarketShop\image\product\iphone_1-50x75.jpg" />
+    <Content Include="Content\MarketShop\image\product\iphone_6-200x200.jpg" />
+    <Content Include="Content\MarketShop\image\product\iphone_6-220x330.jpg" />
+    <Content Include="Content\MarketShop\image\product\iphone_6-50x50.jpg" />
+    <Content Include="Content\MarketShop\image\product\iphone_6-50x75.jpg" />
+    <Content Include="Content\MarketShop\image\product\ipod_classic_1-200x200.jpg" />
+    <Content Include="Content\MarketShop\image\product\ipod_classic_1-220x330.jpg" />
+    <Content Include="Content\MarketShop\image\product\ipod_nano_1-200x200.jpg" />
+    <Content Include="Content\MarketShop\image\product\ipod_nano_1-220x330.jpg" />
+    <Content Include="Content\MarketShop\image\product\ipod_shuffle_1-200x200.jpg" />
+    <Content Include="Content\MarketShop\image\product\ipod_shuffle_1-220x330.jpg" />
+    <Content Include="Content\MarketShop\image\product\ipod_touch_1-200x200.jpg" />
+    <Content Include="Content\MarketShop\image\product\ipod_touch_1-220x330.jpg" />
+    <Content Include="Content\MarketShop\image\product\macbook_1-200x200.jpg" />
+    <Content Include="Content\MarketShop\image\product\macbook_1-220x330.jpg" />
+    <Content Include="Content\MarketShop\image\product\macbook_1-50x50.jpg" />
+    <Content Include="Content\MarketShop\image\product\macbook_1-50x75.jpg" />
+    <Content Include="Content\MarketShop\image\product\macbook_2-200x200.jpg" />
+    <Content Include="Content\MarketShop\image\product\macbook_2-220x330.jpg" />
+    <Content Include="Content\MarketShop\image\product\macbook_2-50x50.jpg" />
+    <Content Include="Content\MarketShop\image\product\macbook_2-50x75.jpg" />
+    <Content Include="Content\MarketShop\image\product\macbook_3-200x200.jpg" />
+    <Content Include="Content\MarketShop\image\product\macbook_3-220x330.jpg" />
+    <Content Include="Content\MarketShop\image\product\macbook_3-50x50.jpg" />
+    <Content Include="Content\MarketShop\image\product\macbook_3-50x75.jpg" />
+    <Content Include="Content\MarketShop\image\product\macbook_4-200x200.jpg" />
+    <Content Include="Content\MarketShop\image\product\macbook_4-220x330.jpg" />
+    <Content Include="Content\MarketShop\image\product\macbook_4-50x50.jpg" />
+    <Content Include="Content\MarketShop\image\product\macbook_4-50x75.jpg" />
+    <Content Include="Content\MarketShop\image\product\macbook_5-200x200.jpg" />
+    <Content Include="Content\MarketShop\image\product\macbook_5-220x330.jpg" />
+    <Content Include="Content\MarketShop\image\product\macbook_5-50x50.jpg" />
+    <Content Include="Content\MarketShop\image\product\macbook_5-50x75.jpg" />
+    <Content Include="Content\MarketShop\image\product\macbook_air_1-200x200.jpg" />
+    <Content Include="Content\MarketShop\image\product\macbook_air_1-220x330.jpg" />
+    <Content Include="Content\MarketShop\image\product\macbook_air_1-350x350.jpg" />
+    <Content Include="Content\MarketShop\image\product\macbook_air_1-350x525.jpg" />
+    <Content Include="Content\MarketShop\image\product\macbook_air_1-500x500.jpg" />
+    <Content Include="Content\MarketShop\image\product\macbook_air_1-50x50.jpg" />
+    <Content Include="Content\MarketShop\image\product\macbook_air_1-50x75.jpg" />
+    <Content Include="Content\MarketShop\image\product\macbook_air_1-600x900.jpg" />
+    <Content Include="Content\MarketShop\image\product\macbook_air_1-66x66.jpg" />
+    <Content Include="Content\MarketShop\image\product\macbook_air_1-66x99.jpg" />
+    <Content Include="Content\MarketShop\image\product\macbook_air_1-90x135.jpg" />
+    <Content Include="Content\MarketShop\image\product\macbook_air_1-90x90.jpg" />
+    <Content Include="Content\MarketShop\image\product\macbook_air_2-350x350.jpg" />
+    <Content Include="Content\MarketShop\image\product\macbook_air_2-350x525.jpg" />
+    <Content Include="Content\MarketShop\image\product\macbook_air_2-500x500.jpg" />
+    <Content Include="Content\MarketShop\image\product\macbook_air_2-600x900.jpg" />
+    <Content Include="Content\MarketShop\image\product\macbook_air_2-66x66.jpg" />
+    <Content Include="Content\MarketShop\image\product\macbook_air_2-66x99.jpg" />
+    <Content Include="Content\MarketShop\image\product\macbook_air_3-350x350.jpg" />
+    <Content Include="Content\MarketShop\image\product\macbook_air_3-350x525.jpg" />
+    <Content Include="Content\MarketShop\image\product\macbook_air_3-500x500.jpg" />
+    <Content Include="Content\MarketShop\image\product\macbook_air_3-600x900.jpg" />
+    <Content Include="Content\MarketShop\image\product\macbook_air_3-66x66.jpg" />
+    <Content Include="Content\MarketShop\image\product\macbook_air_3-66x99.jpg" />
+    <Content Include="Content\MarketShop\image\product\macbook_air_4-350x350.jpg" />
+    <Content Include="Content\MarketShop\image\product\macbook_air_4-350x525.jpg" />
+    <Content Include="Content\MarketShop\image\product\macbook_air_4-500x500.jpg" />
+    <Content Include="Content\MarketShop\image\product\macbook_air_4-600x900.jpg" />
+    <Content Include="Content\MarketShop\image\product\macbook_air_4-66x66.jpg" />
+    <Content Include="Content\MarketShop\image\product\macbook_air_4-66x99.jpg" />
+    <Content Include="Content\MarketShop\image\product\macbook_pro_1-200x200.jpg" />
+    <Content Include="Content\MarketShop\image\product\macbook_pro_1-220x330.jpg" />
+    <Content Include="Content\MarketShop\image\product\macbook_pro_1-50x50.jpg" />
+    <Content Include="Content\MarketShop\image\product\macbook_pro_1-50x75.jpg" />
+    <Content Include="Content\MarketShop\image\product\macbook_pro_1-90x135.jpg" />
+    <Content Include="Content\MarketShop\image\product\macbook_pro_1-90x90.jpg" />
+    <Content Include="Content\MarketShop\image\product\nikon_d300_1-200x200.jpg" />
+    <Content Include="Content\MarketShop\image\product\nikon_d300_1-220x330.jpg" />
+    <Content Include="Content\MarketShop\image\product\nikon_d300_1-50x50.jpg" />
+    <Content Include="Content\MarketShop\image\product\nikon_d300_1-50x75.jpg" />
+    <Content Include="Content\MarketShop\image\product\nikon_d300_4-200x200.jpg" />
+    <Content Include="Content\MarketShop\image\product\nikon_d300_4-220x330.jpg" />
+    <Content Include="Content\MarketShop\image\product\nikon_d300_4-50x50.jpg" />
+    <Content Include="Content\MarketShop\image\product\nikon_d300_4-50x75.jpg" />
+    <Content Include="Content\MarketShop\image\product\nikon_d300_5-200x200.jpg" />
+    <Content Include="Content\MarketShop\image\product\nikon_d300_5-220x330.jpg" />
+    <Content Include="Content\MarketShop\image\product\nikon_d300_5-50x50.jpg" />
+    <Content Include="Content\MarketShop\image\product\nikon_d300_5-50x75.jpg" />
+    <Content Include="Content\MarketShop\image\product\palm_logo-60x60.jpg" />
+    <Content Include="Content\MarketShop\image\product\palm_treo_pro_1-200x200.jpg" />
+    <Content Include="Content\MarketShop\image\product\palm_treo_pro_1-220x330.jpg" />
+    <Content Include="Content\MarketShop\image\product\samsung_tab_1-200x200.jpg" />
+    <Content Include="Content\MarketShop\image\product\samsung_tab_1-220x330.jpg" />
+    <Content Include="Content\MarketShop\image\product\samsung_tab_1-50x50.jpg" />
+    <Content Include="Content\MarketShop\image\product\samsung_tab_1-50x75.jpg" />
+    <Content Include="Content\MarketShop\image\product\samsung_tab_1-90x135.jpg" />
+    <Content Include="Content\MarketShop\image\product\samsung_tab_1-90x90.jpg" />
+    <Content Include="Content\MarketShop\image\product\sony_logo-60x60.jpg" />
+    <Content Include="Content\MarketShop\image\product\sony_vaio_1-200x200.jpg" />
+    <Content Include="Content\MarketShop\image\product\sony_vaio_1-220x330.jpg" />
+    <Content Include="Content\MarketShop\image\product\sony_vaio_1-50x50.jpg" />
+    <Content Include="Content\MarketShop\image\product\sony_vaio_1-50x75.jpg" />
+    <Content Include="Content\MarketShop\image\product\store_location-275x180.jpg" />
+    <Content Include="Content\MarketShop\image\progress.gif" />
+    <Content Include="Content\MarketShop\image\slider\banner-1.jpg" />
+    <Content Include="Content\MarketShop\image\slider\banner-2.jpg" />
+    <Content Include="Content\MarketShop\image\slider\banner-3.jpg" />
+    <Content Include="Content\MarketShop\image\slider\sizdah bedar2.jpg" />
+    <Content Include="Content\MarketShop\image\socialicons\bebo.png" />
+    <Content Include="Content\MarketShop\image\socialicons\blogger.png" />
+    <Content Include="Content\MarketShop\image\socialicons\delicious.png" />
+    <Content Include="Content\MarketShop\image\socialicons\digg.png" />
+    <Content Include="Content\MarketShop\image\socialicons\dopplr.png" />
+    <Content Include="Content\MarketShop\image\socialicons\ember.png" />
+    <Content Include="Content\MarketShop\image\socialicons\evernote.png" />
+    <Content Include="Content\MarketShop\image\socialicons\facebook.png" />
+    <Content Include="Content\MarketShop\image\socialicons\flickr.png" />
+    <Content Include="Content\MarketShop\image\socialicons\forrst.png" />
+    <Content Include="Content\MarketShop\image\socialicons\friendfeed.png" />
+    <Content Include="Content\MarketShop\image\socialicons\googletalk.png" />
+    <Content Include="Content\MarketShop\image\socialicons\google_plus.png" />
+    <Content Include="Content\MarketShop\image\socialicons\grooveshark.png" />
+    <Content Include="Content\MarketShop\image\socialicons\instagram.png" />
+    <Content Include="Content\MarketShop\image\socialicons\lastfm.png" />
+    <Content Include="Content\MarketShop\image\socialicons\linkedin.png" />
+    <Content Include="Content\MarketShop\image\socialicons\mixx.png" />
+    <Content Include="Content\MarketShop\image\socialicons\myspace.png" />
+    <Content Include="Content\MarketShop\image\socialicons\newsvine.png" />
+    <Content Include="Content\MarketShop\image\socialicons\openid.png" />
+    <Content Include="Content\MarketShop\image\socialicons\pandora.png" />
+    <Content Include="Content\MarketShop\image\socialicons\picasa.png" />
+    <Content Include="Content\MarketShop\image\socialicons\pinterest.png" />
+    <Content Include="Content\MarketShop\image\socialicons\posterous.png" />
+    <Content Include="Content\MarketShop\image\socialicons\readernaut.png" />
+    <Content Include="Content\MarketShop\image\socialicons\reddit.png" />
+    <Content Include="Content\MarketShop\image\socialicons\rss.png" />
+    <Content Include="Content\MarketShop\image\socialicons\sharethis.png" />
+    <Content Include="Content\MarketShop\image\socialicons\skype.png" />
+    <Content Include="Content\MarketShop\image\socialicons\spotify.png" />
+    <Content Include="Content\MarketShop\image\socialicons\stumbleupon.png" />
+    <Content Include="Content\MarketShop\image\socialicons\technorati.png" />
+    <Content Include="Content\MarketShop\image\socialicons\tumblr.png" />
+    <Content Include="Content\MarketShop\image\socialicons\twitter.png" />
+    <Content Include="Content\MarketShop\image\socialicons\viadeo.png" />
+    <Content Include="Content\MarketShop\image\socialicons\viddler.png" />
+    <Content Include="Content\MarketShop\image\socialicons\vimeo.png" />
+    <Content Include="Content\MarketShop\image\socialicons\virb.png" />
+    <Content Include="Content\MarketShop\image\socialicons\vk.png" />
+    <Content Include="Content\MarketShop\image\socialicons\xing.png" />
+    <Content Include="Content\MarketShop\image\socialicons\yahoobuzz.png" />
+    <Content Include="Content\MarketShop\image\socialicons\yelp.png" />
+    <Content Include="Content\MarketShop\image\socialicons\youtube.png" />
+    <Content Include="Content\MarketShop\js\bootstrap\css\bootstrap-flipped.css" />
+    <Content Include="Content\MarketShop\js\bootstrap\css\bootstrap-flipped.min.css" />
+    <Content Include="Content\MarketShop\js\bootstrap\css\bootstrap-rtl.css" />
+    <Content Include="Content\MarketShop\js\bootstrap\css\bootstrap-rtl.min.css" />
+    <Content Include="Content\MarketShop\js\bootstrap\css\bootstrap-theme.css" />
+    <Content Include="Content\MarketShop\js\bootstrap\css\bootstrap-theme.min.css" />
+    <Content Include="Content\MarketShop\js\bootstrap\css\bootstrap.css" />
+    <Content Include="Content\MarketShop\js\bootstrap\css\bootstrap.min.css" />
+    <Content Include="Content\MarketShop\js\bootstrap\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\MarketShop\js\bootstrap\js\bootstrap.js" />
+    <Content Include="Content\MarketShop\js\bootstrap\js\bootstrap.min.js" />
+    <Content Include="Content\MarketShop\js\custom.js" />
+    <Content Include="Content\MarketShop\js\jquery-2.1.1.min.js" />
+    <Content Include="Content\MarketShop\js\jquery.dcjqaccordion.js" />
+    <Content Include="Content\MarketShop\js\jquery.dcjqaccordion.min.js" />
+    <Content Include="Content\MarketShop\js\jquery.easing-1.3.min.js" />
+    <Content Include="Content\MarketShop\js\jquery.elevateZoom-3.0.8.min.js" />
+    <Content Include="Content\MarketShop\js\jquery.elevatezoom.js" />
+    <Content Include="Content\MarketShop\js\owl.carousel.js" />
+    <Content Include="Content\MarketShop\js\owl.carousel.min.js" />
+    <Content Include="Content\MarketShop\js\swipebox\lib\ios-orientationchange-fix.js" />
+    <Content Include="Content\MarketShop\js\swipebox\lib\jquery-2.1.0.min.js" />
+    <Content Include="Content\MarketShop\js\swipebox\src\css\swipebox.css" />
+    <Content Include="Content\MarketShop\js\swipebox\src\css\swipebox.min.css" />
+    <Content Include="Content\MarketShop\js\swipebox\src\img\icons.png" />
+    <Content Include="Content\MarketShop\js\swipebox\src\img\icons.svg" />
+    <Content Include="Content\MarketShop\js\swipebox\src\img\loader.gif" />
+    <Content Include="Content\MarketShop\js\swipebox\src\js\jquery.swipebox.js" />
+    <Content Include="Content\MarketShop\js\swipebox\src\js\jquery.swipebox.min.js" />
+    <Content Include="Content\MarketShop\revolution\assets\coloredbg.png" />
+    <Content Include="Content\MarketShop\revolution\assets\gridtile.png" />
+    <Content Include="Content\MarketShop\revolution\assets\gridtile_3x3.png" />
+    <Content Include="Content\MarketShop\revolution\assets\gridtile_3x3_white.png" />
+    <Content Include="Content\MarketShop\revolution\assets\gridtile_white.png" />
+    <Content Include="Content\MarketShop\revolution\assets\loader.gif" />
+    <Content Include="Content\MarketShop\revolution\assets\sources\fb.png" />
+    <Content Include="Content\MarketShop\revolution\assets\sources\fr.png" />
+    <Content Include="Content\MarketShop\revolution\assets\sources\ig.png" />
+    <Content Include="Content\MarketShop\revolution\assets\sources\post.png" />
+    <Content Include="Content\MarketShop\revolution\assets\sources\revolution_slide1.png" />
+    <Content Include="Content\MarketShop\revolution\assets\sources\revolution_slide2.png" />
+    <Content Include="Content\MarketShop\revolution\assets\sources\tw.png" />
+    <Content Include="Content\MarketShop\revolution\assets\sources\vm.png" />
+    <Content Include="Content\MarketShop\revolution\assets\sources\wc.png" />
+    <Content Include="Content\MarketShop\revolution\assets\sources\yt.png" />
+    <Content Include="Content\MarketShop\revolution\css\closedhand.cur" />
+    <Content Include="Content\MarketShop\revolution\css\layers.css" />
+    <Content Include="Content\MarketShop\revolution\css\navigation-skins\ares.css" />
+    <Content Include="Content\MarketShop\revolution\css\navigation-skins\custom.css" />
+    <Content Include="Content\MarketShop\revolution\css\navigation-skins\dione.css" />
+    <Content Include="Content\MarketShop\revolution\css\navigation-skins\erinyen.css" />
+    <Content Include="Content\MarketShop\revolution\css\navigation-skins\gyges.css" />
+    <Content Include="Content\MarketShop\revolution\css\navigation-skins\hades.css" />
+    <Content Include="Content\MarketShop\revolution\css\navigation-skins\hebe.css" />
+    <Content Include="Content\MarketShop\revolution\css\navigation-skins\hephaistos.css" />
+    <Content Include="Content\MarketShop\revolution\css\navigation-skins\hermes.css" />
+    <Content Include="Content\MarketShop\revolution\css\navigation-skins\hesperiden.css" />
+    <Content Include="Content\MarketShop\revolution\css\navigation-skins\metis.css" />
+    <Content Include="Content\MarketShop\revolution\css\navigation-skins\persephone.css" />
+    <Content Include="Content\MarketShop\revolution\css\navigation-skins\uranus.css" />
+    <Content Include="Content\MarketShop\revolution\css\navigation-skins\zeus.css" />
+    <Content Include="Content\MarketShop\revolution\css\navigation.css" />
+    <Content Include="Content\MarketShop\revolution\css\openhand.cur" />
+    <Content Include="Content\MarketShop\revolution\css\settings.css" />
+    <Content Include="Content\MarketShop\revolution\fonts\font-awesome\css\font-awesome.css" />
+    <Content Include="Content\MarketShop\revolution\fonts\font-awesome\css\font-awesome.min.css" />
+    <Content Include="Content\MarketShop\revolution\fonts\font-awesome\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\MarketShop\revolution\fonts\pe-icon-7-stroke\css\helper.css" />
+    <Content Include="Content\MarketShop\revolution\fonts\pe-icon-7-stroke\css\pe-icon-7-stroke.css" />
+    <Content Include="Content\MarketShop\revolution\fonts\pe-icon-7-stroke\fonts\Pe-icon-7-stroke.svg" />
+    <Content Include="Content\MarketShop\revolution\fonts\revicons\revicons.svg" />
+    <Content Include="Content\MarketShop\revolution\js\extensions\revolution.extension.actions.min.js" />
+    <Content Include="Content\MarketShop\revolution\js\extensions\revolution.extension.carousel.min.js" />
+    <Content Include="Content\MarketShop\revolution\js\extensions\revolution.extension.kenburn.min.js" />
+    <Content Include="Content\MarketShop\revolution\js\extensions\revolution.extension.layeranimation.min.js" />
+    <Content Include="Content\MarketShop\revolution\js\extensions\revolution.extension.migration.min.js" />
+    <Content Include="Content\MarketShop\revolution\js\extensions\revolution.extension.navigation.min.js" />
+    <Content Include="Content\MarketShop\revolution\js\extensions\revolution.extension.parallax.min.js" />
+    <Content Include="Content\MarketShop\revolution\js\extensions\revolution.extension.slideanims.min.js" />
+    <Content Include="Content\MarketShop\revolution\js\extensions\revolution.extension.video.min.js" />
+    <Content Include="Content\MarketShop\revolution\js\extensions\source\revolution.extension.actions.js" />
+    <Content Include="Content\MarketShop\revolution\js\extensions\source\revolution.extension.carousel.js" />
+    <Content Include="Content\MarketShop\revolution\js\extensions\source\revolution.extension.kenburn.js" />
+    <Content Include="Content\MarketShop\revolution\js\extensions\source\revolution.extension.layeranimation.js" />
+    <Content Include="Content\MarketShop\revolution\js\extensions\source\revolution.extension.migration.js" />
+    <Content Include="Content\MarketShop\revolution\js\extensions\source\revolution.extension.navigation.js" />
+    <Content Include="Content\MarketShop\revolution\js\extensions\source\revolution.extension.parallax.js" />
+    <Content Include="Content\MarketShop\revolution\js\extensions\source\revolution.extension.slideanims.js" />
+    <Content Include="Content\MarketShop\revolution\js\extensions\source\revolution.extension.video.js" />
+    <Content Include="Content\MarketShop\revolution\js\jquery.themepunch.enablelog.js" />
+    <Content Include="Content\MarketShop\revolution\js\jquery.themepunch.revolution.min.js" />
+    <Content Include="Content\MarketShop\revolution\js\jquery.themepunch.tools.min.js" />
+    <Content Include="Content\MarketShop\revolution\js\source\jquery.themepunch.enablelog.js" />
+    <Content Include="Content\MarketShop\revolution\js\source\jquery.themepunch.revolution.js" />
+    <Content Include="Content\MarketShop\revolution\js\source\jquery.themepunch.tools.min.js" />
+    <Content Include="Content\Site.css" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Areas\Admin\Views\Categories\List.cshtml" />
+    <Content Include="Areas\Admin\Views\Categories\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Categories\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\DataTypes\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\DataTypes\List.cshtml" />
+    <Content Include="Areas\Admin\Views\DataTypes\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\DataTypes\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\ProductTypes\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\ProductTypes\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\ProductTypes\List.cshtml" />
+    <Content Include="Areas\Admin\Views\ProductTypes\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Products\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Products\ProductTypePropertiesInputForm.cshtml" />
+    <Content Include="Areas\Admin\Views\Products\List.cshtml" />
+    <Content Include="Areas\Admin\Views\Products\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\ProductAvailabilities\List.cshtml" />
+    <Content Include="Areas\Admin\Views\ProductAvailabilities\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\ProductAvailabilities\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\ProductAvailabilities\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\ProductPrices\List.cshtml" />
+    <Content Include="Areas\Admin\Views\ProductPrices\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\ProductPrices\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\ShipmentMethods\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\ShipmentMethods\List.cshtml" />
+    <Content Include="Areas\Admin\Views\ShipmentMethods\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\ShipmentCosts\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\ShipmentCosts\List.cshtml" />
+    <Content Include="Areas\Admin\Views\ShipmentCosts\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\PaymentMethods\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\PaymentMethods\List.cshtml" />
+    <Content Include="Areas\Admin\Views\PaymentMethods\Edit.cshtml" />
+    <Content Include="Content\MarketShop\css\font-awesome\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\MarketShop\css\font-awesome\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\MarketShop\css\font-awesome\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\MarketShop\css\font-awesome\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\MarketShop\css\font-awesome\fonts\FontAwesome.otf" />
+    <Content Include="Content\MarketShop\css\font-awesome\less\animated.less" />
+    <Content Include="Content\MarketShop\css\font-awesome\less\bordered-pulled.less" />
+    <Content Include="Content\MarketShop\css\font-awesome\less\core.less" />
+    <Content Include="Content\MarketShop\css\font-awesome\less\fixed-width.less" />
+    <Content Include="Content\MarketShop\css\font-awesome\less\font-awesome.less" />
+    <Content Include="Content\MarketShop\css\font-awesome\less\icons.less" />
+    <Content Include="Content\MarketShop\css\font-awesome\less\larger.less" />
+    <Content Include="Content\MarketShop\css\font-awesome\less\list.less" />
+    <Content Include="Content\MarketShop\css\font-awesome\less\mixins.less" />
+    <Content Include="Content\MarketShop\css\font-awesome\less\path.less" />
+    <Content Include="Content\MarketShop\css\font-awesome\less\rotated-flipped.less" />
+    <Content Include="Content\MarketShop\css\font-awesome\less\stacked.less" />
+    <Content Include="Content\MarketShop\css\font-awesome\less\variables.less" />
+    <Content Include="Content\MarketShop\css\font-awesome\scss\font-awesome.scss" />
+    <Content Include="Content\MarketShop\css\font-awesome\scss\_animated.scss" />
+    <Content Include="Content\MarketShop\css\font-awesome\scss\_bordered-pulled.scss" />
+    <Content Include="Content\MarketShop\css\font-awesome\scss\_core.scss" />
+    <Content Include="Content\MarketShop\css\font-awesome\scss\_fixed-width.scss" />
+    <Content Include="Content\MarketShop\css\font-awesome\scss\_icons.scss" />
+    <Content Include="Content\MarketShop\css\font-awesome\scss\_larger.scss" />
+    <Content Include="Content\MarketShop\css\font-awesome\scss\_list.scss" />
+    <Content Include="Content\MarketShop\css\font-awesome\scss\_mixins.scss" />
+    <Content Include="Content\MarketShop\css\font-awesome\scss\_path.scss" />
+    <Content Include="Content\MarketShop\css\font-awesome\scss\_rotated-flipped.scss" />
+    <Content Include="Content\MarketShop\css\font-awesome\scss\_stacked.scss" />
+    <Content Include="Content\MarketShop\css\font-awesome\scss\_variables.scss" />
+    <Content Include="Content\MarketShop\css\persian-fonts\BKoodakBold.eot" />
+    <Content Include="Content\MarketShop\css\persian-fonts\BKoodakBold.ttf" />
+    <Content Include="Content\MarketShop\css\persian-fonts\BKoodakBold.woff" />
+    <Content Include="Content\MarketShop\css\persian-fonts\WYekan.eot" />
+    <Content Include="Content\MarketShop\css\persian-fonts\WYekan.ttf" />
+    <Content Include="Content\MarketShop\css\persian-fonts\WYekan.woff" />
+    <Content Include="Content\MarketShop\js\bootstrap\css\bootstrap-flipped.css.map" />
+    <Content Include="Content\MarketShop\js\bootstrap\css\bootstrap-rtl.css.map" />
+    <Content Include="Content\MarketShop\js\bootstrap\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\MarketShop\js\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\MarketShop\js\bootstrap\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\MarketShop\js\bootstrap\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Content\MarketShop\revolution\.DS_Store" />
+    <Content Include="Content\MarketShop\revolution\assets\.DS_Store" />
+    <Content Include="Content\MarketShop\revolution\css\.DS_Store" />
+    <Content Include="Content\MarketShop\revolution\css\index.php" />
+    <Content Include="Content\MarketShop\revolution\fonts\.DS_Store" />
+    <Content Include="Content\MarketShop\revolution\fonts\font-awesome\.DS_Store" />
+    <Content Include="Content\MarketShop\revolution\fonts\font-awesome\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\MarketShop\revolution\fonts\font-awesome\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\MarketShop\revolution\fonts\font-awesome\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\MarketShop\revolution\fonts\font-awesome\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\MarketShop\revolution\fonts\font-awesome\fonts\FontAwesome.otf" />
+    <Content Include="Content\MarketShop\revolution\fonts\font-awesome\index.php" />
+    <Content Include="Content\MarketShop\revolution\fonts\index.php" />
+    <Content Include="Content\MarketShop\revolution\fonts\pe-icon-7-stroke\.DS_Store" />
+    <Content Include="Content\MarketShop\revolution\fonts\pe-icon-7-stroke\css\index.php" />
+    <Content Include="Content\MarketShop\revolution\fonts\pe-icon-7-stroke\fonts\index.php" />
+    <Content Include="Content\MarketShop\revolution\fonts\pe-icon-7-stroke\fonts\Pe-icon-7-stroke.eot" />
+    <Content Include="Content\MarketShop\revolution\fonts\pe-icon-7-stroke\fonts\Pe-icon-7-stroke.ttf" />
+    <Content Include="Content\MarketShop\revolution\fonts\pe-icon-7-stroke\fonts\Pe-icon-7-stroke.woff" />
+    <Content Include="Content\MarketShop\revolution\fonts\pe-icon-7-stroke\index.php" />
+    <Content Include="Content\MarketShop\revolution\fonts\revicons\index.php" />
+    <Content Include="Content\MarketShop\revolution\fonts\revicons\revicons.eot" />
+    <Content Include="Content\MarketShop\revolution\fonts\revicons\revicons.ttf" />
+    <Content Include="Content\MarketShop\revolution\fonts\revicons\revicons.woff" />
+    <Content Include="Content\MarketShop\revolution\index.php" />
+    <Content Include="Content\MarketShop\revolution\info.cfg" />
+    <Content Include="Content\MarketShop\revolution\js\extensions\index.php" />
+    <Content Include="Content\MarketShop\revolution\js\extensions\source\index.php" />
+    <Content Include="Content\MarketShop\revolution\js\index.php" />
+    <Content Include="Content\MarketShop\revolution\js\source\index.php" />
+    <Content Include="Content\MarketShop\revolution\php\.DS_Store" />
+    <Content Include="Content\MarketShop\revolution\php\facebook\class-facebook.php" />
+    <Content Include="Content\MarketShop\revolution\php\flickr\class-flickr.php" />
+    <Content Include="Content\MarketShop\revolution\php\instagram\class-instagram.php" />
+    <Content Include="Content\MarketShop\revolution\php\twitter\.DS_Store" />
+    <Content Include="Content\MarketShop\revolution\php\twitter\class-twitter.php" />
+    <Content Include="Content\MarketShop\revolution\php\twitter\connection\Application.php" />
+    <Content Include="Content\MarketShop\revolution\php\twitter\connection\ConnectionAbstract.php" />
+    <Content Include="Content\MarketShop\revolution\php\twitter\connection\User.php" />
+    <Content Include="Content\MarketShop\revolution\php\twitter\RestApi.php" />
+    <Content Include="Content\MarketShop\revolution\php\vimeo\class-vimeo.php" />
+    <Content Include="Content\MarketShop\revolution\php\youtube\class-youtube.php" />
+    <Content Include="Areas\Account\Views\web.config" />
+    <Content Include="Areas\Account\Views\Shared\_AccountLayout.cshtml" />
+    <Content Include="Areas\Account\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Account\Views\Accounts\Login.cshtml" />
+    <Content Include="Areas\Account\Views\Accounts\Register.cshtml" />
+    <Content Include="Areas\Account\Views\Accounts\RightSidePartial.cshtml" />
+    <Content Include="Areas\Store\Views\web.config" />
+    <Content Include="Areas\Store\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Store\Views\Shared\_StoreLayout.cshtml" />
+    <Content Include="Areas\Store\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Store\Views\Home\ProductSummaryPartial.cshtml" />
+    <Content Include="Areas\Store\Views\Home\ProductTabPartial.cshtml" />
+    <Content Include="Areas\Store\Views\Home\ProductDetails.cshtml" />
+    <Content Include="Areas\Store\Views\Home\AboutUs.cshtml" />
+    <Content Include="Areas\Store\Views\Home\ContactUs.cshtml" />
+    <Content Include="Areas\Store\Views\Home\Search.cshtml" />
+    <Content Include="Areas\Store\Views\Orders\Cart.cshtml" />
+    <Content Include="Areas\Store\Views\Orders\CheckOut.cshtml" />
+    <Content Include="Areas\Store\Views\Orders\FinalizeOrder.cshtml" />
+    <Content Include="Areas\Store\Views\Categories\FilterByType.cshtml" />
+    <Content Include="Areas\Store\Views\Categories\FilterByCategory.cshtml" />
+    <Content Include="Areas\Account\Views\Accounts\Confirm.cshtml" />
+    <Content Include="Areas\Account\Views\Accounts\ConfirmEmail.cshtml" />
+    <None Include="Properties\PublishProfiles\Kuff.pubxml" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <None Include="Scripts\jquery-3.2.1-vsdoc.js" />
+    <Content Include="Scripts\jquery-3.2.1.js" />
+    <Content Include="Scripts\jquery-3.2.1.min.js" />
+    <Content Include="Scripts\jquery-3.2.1.slim.js" />
+    <Content Include="Scripts\jquery-3.2.1.slim.min.js" />
+    <Content Include="Scripts\jquery-3.2.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.2.1.min.map" />
+    <None Include="Scripts\jquery-3.3.1-vsdoc.js" />
+    <Content Include="Scripts\jquery-3.3.1.js" />
+    <Content Include="Scripts\jquery-3.3.1.min.js" />
+    <Content Include="Scripts\jquery-3.3.1.slim.js" />
+    <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
+    <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.3.1.min.map" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\KuffJavaScripts\Areas\Account\Login.js" />
+    <Content Include="Scripts\KuffJavaScripts\Areas\Account\Register.js" />
+    <Content Include="Scripts\KuffJavaScripts\Areas\Admin\Products\Create.js" />
+    <Content Include="Scripts\KuffJavaScripts\Areas\Admin\Products\Edit.js" />
+    <Content Include="Scripts\KuffJavaScripts\Areas\Admin\ProductTypes\Create.js" />
+    <Content Include="Scripts\KuffJavaScripts\Areas\Admin\ProductTypes\Edit.js" />
+    <Content Include="Scripts\KuffJavaScripts\Areas\Store\Cart.js" />
+    <Content Include="Scripts\KuffJavaScripts\Areas\Store\CheckOut.js" />
+    <Content Include="Scripts\KuffJavaScripts\Areas\Store\ProductDetails.js" />
+    <Content Include="Scripts\KuffJavaScripts\HeaderPartialScripts.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\DependencyInjectionModule.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\Account\AccountAreaRegistration.cs" />
+    <Compile Include="Areas\Account\Controllers\AccountsController.cs" />
+    <Compile Include="Areas\Account\Models\LoginViewModel.cs" />
+    <Compile Include="Areas\Account\Models\RegisterViewModel.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\CategoriesController.cs" />
+    <Compile Include="Areas\Admin\Controllers\DataTypesController.cs" />
+    <Compile Include="Areas\Admin\Controllers\PaymentMethodsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ProductAvailabilitiesController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ProductPricesController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ProductsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ProductTypesController.cs" />
+    <Compile Include="Areas\Admin\Controllers\SharedServicesController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ShipmentCostsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ShipmentMethodsController.cs" />
+    <Compile Include="Areas\Store\Controllers\CategoriesController.cs" />
+    <Compile Include="Areas\Store\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Store\Controllers\OrdersController.cs" />
+    <Compile Include="Areas\Store\Models\CartViewModel.cs" />
+    <Compile Include="Areas\Store\Models\ProductDetailsViewModel.cs" />
+    <Compile Include="Areas\Store\StoreAreaRegistration.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Infrastructure\UnityDependencyResolver.cs" />
+    <Compile Include="IocContainer\UiIocConfigurator.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Startup.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="packages.config" />
+    <Content Include="Areas\Admin\Views\web.config" />
+    <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Admin\Views\Categories\Create.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\FooterPartial.cshtml" />
+    <Content Include="Views\Shared\HeaderPartial.cshtml" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Areas\Admin\Views\SharedServices\" />
+    <Folder Include="Controllers\" />
+    <Folder Include="Images\" />
+    <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Kuff.Common\Kuff.Common.csproj">
+      <Project>{ba4aee3f-5155-44df-b105-6a1222e35246}</Project>
+      <Name>Kuff.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Kuff.Service\Kuff.Service.csproj">
+      <Project>{24e1ca4d-f357-495a-846d-04bb8fde2d3f}</Project>
+      <Name>Kuff.Service</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>2672</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:2672/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

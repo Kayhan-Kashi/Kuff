@@ -1,0 +1,54 @@
+﻿@using Kuff.Common.DTOs.ProductRelated
+@model IEnumerable<ProductDto>
+
+
+<div id="product-tab" class="product-tab">
+    <ul id="tabs" class="tabs">
+        <li><a href="#tab-featured">ویژه</a></li>
+    </ul>
+    <div id="tab-featured" class="tab_content">
+        <div class="owl-carousel product_carousel_tab">
+            @foreach (ProductDto prod in Model)
+            {
+                var filePath = prod.ProductPictures.FirstOrDefault(p => p.IsMainPicture == true).FilePath;
+                var picId = prod.ProductPictures.FirstOrDefault(p => p.IsMainPicture == true).Id.ToString();
+                var productSummary = prod.Summary;
+
+                <div class="product-thumb clearfix">
+                    <div class="image">
+                        <a href="@Url.Action("ProductDetails", new { area="Store", controller="Home", id=prod.Id })">
+                            <img src="@Url.Content(filePath)" alt="@productSummary" title="@productSummary" class="img-responsive" style="display:block;width:100%;height:200px;" />
+                        </a>
+                    </div>
+                    <div class="caption">
+                        <h4><a href="@Url.Action("ProductDetails", new { controller = "Home", id = prod.Id.ToString() })">@prod.Summary</a></h4>
+                        <p class="price">
+                            @if (prod.IsAvailable)
+                {
+                                <span class="price-new">@prod.LastPriceWithDiscount.ToString("0.") تومان</span>
+
+                                if (prod.HasDiscount)
+                                {
+                                    <span class="price-old">@prod.LastPriceWithoutDiscount.ToString("0.") تومان</span>
+                                    <span class="saving">%@prod.DiscountInPercent.ToString()</span>
+                                }
+                            }
+                            else
+                            {
+                                <span class="nostock">ناموجود</span>
+                            }
+                        </p>
+                    </div>
+                    <div class="button-group">
+                        @Html.ActionLink("افزودن به سبد", "ProductDetails", new { area = "Store", controller = "Home", id = prod.Id }, new { @class = "btn btn-primary" })
+                        <div class="add-to-links">
+                            <button type="button" data-toggle="tooltip" title="افزودن به علاقه مندی ها" onClick=""><i class="fa fa-heart"></i></button>
+                            <button type="button" data-toggle="tooltip" title="مقایسه این محصول" onClick=""><i class="fa fa-exchange"></i></button>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+

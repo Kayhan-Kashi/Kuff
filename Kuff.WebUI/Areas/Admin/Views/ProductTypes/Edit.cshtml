@@ -1,0 +1,160 @@
+﻿@using Kuff.Common.DTOs.ProductRelated
+@model Kuff.Common.DTOs.ProductRelated.ProductTypeDto
+
+<h2 dir="rtl">ویرایش نوع محصول</h2>
+
+<br />
+<br />
+
+@if (ViewBag.Success == true)
+{
+    <span class="lead" style="display:block" dir="rtl">ویرایش کالا انجام شد</span>
+}
+
+@Html.ValidationSummary()
+
+@using (Html.BeginForm("Edit", "ProductTypes", FormMethod.Post))
+{
+    <div class="row" dir="rtl">
+        <div class="md-4" style="float:right">
+            <div class="panel panel-default">
+                <div class="panel-heading text-center">نام و دسته نوع محصول</div>
+                <div class="panel-body">
+                    @Html.HiddenFor(p => p.Id)
+                    <div class="form-group">
+                        @Html.LabelFor(p => p.Title)
+                        @Html.TextBoxFor(p => p.Title, new { @class = "form-control", dir = "rtl" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(p => p.CategoryName)
+                        @Html.DropDownListFor(p => p.CategoryId, (IEnumerable<SelectListItem>)ViewBag.ProductTypeCategorySelected, "دسته بندی مورد نظر را انتخاب کنید", new { @class = "form-control", dir = "rtl" })
+                    </div>
+                    @Html.Label("ProductTypeComments", "توضیحات", new { style = "margin-top:10px;" })
+                    @Html.TextAreaFor(p => p.Comments, new { @class = "form-control", style = "margin-top:5px;", dir = "rtl" })
+                </div>
+                <div class="text-center">
+                    <button id="addProperty" class="btn btn-success btn-block" type="button" style="margin-top:20px;margin-bottom:5px;">اضافه کردن خصیصه</button>
+                    <button id="removeProperty" class="btn btn-danger btn-block" type="button" style="margin-bottom:20px;">حذف کردن خصیصه</button>
+                </div>
+            </div>
+
+            <script>
+                var counter = -1;
+                var counterShow = 0;
+            </script>
+
+            <div id="ProductTypeProperties">
+
+                @for (int propertyCount = 0; propertyCount < Model.ProductTypeProperties.Count(); propertyCount++)
+                {
+                    //------------------------------------------
+                    <script>
+                        counter++;
+                        counterShow++;
+                    </script>
+                    //-------------------------------------------
+
+                    var propertyDatatypeSelectListItems = new List<SelectListItem>();
+                    foreach (SelectListItem selectListItem in (IEnumerable<SelectListItem>)ViewBag.DataTypes)
+                    {
+                        if (propertyCount != 0)
+                        {
+                            if (selectListItem.Value.Equals(Model.ProductTypeProperties.ElementAt(propertyCount).DataTypeId.ToString()))
+                            {
+                                propertyDatatypeSelectListItems.Add(new SelectListItem() { Text = selectListItem.Text, Value = selectListItem.Value, Selected = true });
+                                continue;
+                            }
+                            propertyDatatypeSelectListItems.Add(new SelectListItem() { Text = selectListItem.Text, Value = selectListItem.Value });
+                        }
+                        else
+                        {
+                            if (selectListItem.Value.Equals(Model.ProductTypeProperties.ElementAt(propertyCount).DataTypeId.ToString()))
+                            {
+                                propertyDatatypeSelectListItems.Add(new SelectListItem() { Text = selectListItem.Text, Value = selectListItem.Value, Selected = true });
+                                continue;
+                            }
+                            propertyDatatypeSelectListItems.Add(new SelectListItem() { Text = selectListItem.Text, Value = selectListItem.Value, Disabled = true });
+                        }
+                    }
+
+                    //---------------------------------------------------------------------------------------
+
+                    var propertyDecisionSelectListItems = new List<SelectListItem>();
+                    if (propertyCount == 0)
+                    {
+                        propertyDecisionSelectListItems.Add(new SelectListItem { Text = "بله", Value = "true", Selected = Model.ProductTypeProperties.ElementAt(propertyCount).IsUserDecision, Disabled = true });
+                        propertyDecisionSelectListItems.Add(new SelectListItem { Text = "خیر", Value = "false", Selected = !Model.ProductTypeProperties.ElementAt(propertyCount).IsUserDecision });
+                    }
+                    else
+                    {
+                        propertyDecisionSelectListItems.Add(new SelectListItem { Text = "بله", Value = "true", Selected = Model.ProductTypeProperties.ElementAt(propertyCount).IsUserDecision });
+                        propertyDecisionSelectListItems.Add(new SelectListItem { Text = "خیر", Value = "false", Selected = !Model.ProductTypeProperties.ElementAt(propertyCount).IsUserDecision });
+                    }
+
+                    //---------------------------------------------------------------------------------------
+
+                    var propertyOrderSelectListItems = new List<SelectListItem>();
+                    for (int i = 1; i < Model.ProductTypeProperties.Count(); i++)
+                    {
+                        propertyOrderSelectListItems.Add(new SelectListItem
+                        {
+                            Text = i.ToString(),
+                            Value = i.ToString(),
+                            Selected = (i == Model.ProductTypeProperties.ElementAt(propertyCount).OrderNumber)
+                        });
+                    }
+
+                    //---------------------------------------------------------------------------------------
+
+
+
+                    <div id=@("panel" + propertyCount) class="panel panel-default">
+                        <div class="panel-heading">@("خصیصه شماره " + (propertyCount + 1))</div>
+                        <div class="panel-body">
+                            <div class="form-group">
+                                @Html.Hidden("ProductTypeProperties[" + propertyCount + "].Id", Model.ProductTypeProperties.ElementAt(propertyCount).Id.ToString())
+                                @Html.Hidden("ProductTypeProperties[" + propertyCount + "].ProductTypeId", Model.ProductTypeProperties.ElementAt(propertyCount).ProductTypeId.ToString())
+                                @Html.Label("عنوان خصیصه شماره  " + (propertyCount + 1), new { @for = "ProductTypeProperties[" + propertyCount + "].Title" })
+                                @Html.TextBox("ProductTypeProperties[" + propertyCount + "].Title", Model.ProductTypeProperties.ElementAt(propertyCount).Title,
+                                    propertyCount == 0 ? new { @class = "form-control", dir = "rtl", @readonly = "readonly" } as object : new { @class = "form-control", dir = "rtl" })
+                                @Html.Label("نوع داده ای", new { style = "margin-top:10px;", @for = "ProductTypeProperties[" + propertyCount + "].DataTypeId" })
+                                @Html.DropDownList("ProductTypeProperties[" + propertyCount + "].DataTypeId", propertyDatatypeSelectListItems,
+                                    propertyCount == 0 ? new { @class = "form-control", style = "margin-top:5px;", @readonly = "readonly" } as object
+                                        : new { @class = "form-control", style = "margin-top:5px;" })
+                                @Html.Label("ProductTypeProperties[" + propertyCount + "].IsUserDecision", "کاربر باید مقدار خصیصه را مشخص کند ؟",
+                                    new { style = "margin-top:10px;", @for = "ProductTypeProperties[" + propertyCount + "].IsUserDecision" })
+                                @Html.DropDownList("ProductTypeProperties[" + propertyCount + "].IsUserDecision", propertyDecisionSelectListItems,
+                                    propertyCount == 0 ? new { @class = "form-control", style = "margin-top:5px;", dir = "rtl", @readonly = "readonly" } as object : new { @class = "form-control", style = "margin-top:5px;", dir = "rtl" })
+                                @Html.Label("ProductTypeProperties[" + propertyCount + "].OrderNumber", "نوبت خصیصه را مشخص کنید ؟",
+                                    new { style = "margin-top:10px;", @for = "ProductTypeProperties[" + propertyCount + "].OrderNumber" })
+                                @if (propertyCount == 0)
+                                {
+                                    @Html.DropDownList("ProductTypeProperties[" + propertyCount + "].OrderNumber",
+                                        new List<SelectListItem> { new SelectListItem { Text = "0", Value = "0" } },
+                                            new { @class = "form-control", style = "margin-top:5px;", @readonly = "readonly" })
+                                }
+                                else
+                                {
+                                    @Html.DropDownList("ProductTypeProperties[" + propertyCount + "].OrderNumber", propertyOrderSelectListItems,
+                                        new { @class = "form-control", style = "margin-top:5px;" })
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="text-center">
+                <input type="submit" class="btn btn-primary" value="Edit" />
+                @Html.ActionLink("Cancel", "Edit", new { Controller = "ProductTypes" }, new { @class = "btn btn-danger" })
+            </div>
+        </div>
+    </div>
+}
+
+
+<script src="~/Scripts/KuffJavaScripts/Areas/Admin/ProductTypes/Edit.js"></script>
+<script>
+    propertyCounter = counter;
+    propertyCounterToShow = counterShow;
+</script>

@@ -1,0 +1,282 @@
+﻿@using Kuff.Common.DTOs.OrderRelated
+@using Kuff.WebUI.Areas.Store.Models;
+@model OrderDto
+
+@section scripts {
+    <script src="~/Scripts/jquery-3.2.1.js"></script>
+    <script src="~/Scripts/jquery-3.2.1.min.js"></script>
+    <script src="~/scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Scripts/modernizr-2.8.3.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+}
+
+<div id="container">
+    <div class="container">
+        <!-- Breadcrumb Start-->
+        <ul class="breadcrumb">
+            <li><a href="index.html"><i class="fa fa-home"></i></a></li>
+            <li><a href="cart.html">سبد خرید</a></li>
+            <li><a href="checkout.html">تسویه حساب</a></li>
+        </ul>
+        <!-- Breadcrumb End-->
+        <div class="row">
+            <!--Middle Part Start-->
+            <div id="content" class="col-sm-12">
+                <h1 class="title">تسویه حساب</h1>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title"><i class="fa fa-user"></i> اطلاعات شخصی شما</h4>
+                            </div>
+                            <div class="panel-body">
+                                <fieldset id="account">
+                                    <div class="form-group required">
+                                        <label for="input-payment-firstname" class="control-label">نام</label>
+                                        <input type="text" class="form-control" id="input-payment-firstname" placeholder="نام" value="@Model.UserFirstName" name="firstname" disabled>
+                                    </div>
+                                    <div class="form-group required">
+                                        <label for="input-payment-lastname" class="control-label">نام خانوادگی</label>
+                                        <input type="text" class="form-control" id="input-payment-lastname" placeholder="نام خانوادگی" value="@Model.UserLastName" name="lastname" disabled>
+                                    </div>
+                                    <div class="form-group required">
+                                        <label for="input-payment-email" class="control-label">آدرس ایمیل</label>
+                                        <input type="text" class="form-control" id="input-payment-email" placeholder="آدرس ایمیل" value="@Model.UserEmail" name="email" disabled>
+                                    </div>
+                                    <div class="form-group required">
+                                        <label for="input-payment-telephone" class="control-label">شماره تلفن همراه</label>
+                                        <input type="text" class="form-control" id="input-payment-telephone" placeholder="شماره تلفن" value="@Model.UserPhoneNumber" name="telephone" disabled>
+                                    </div>
+                                    <div class="form-group required">
+                                        <label for="input-payment-telephone" class="control-label">شماره تلفن ثابت</label>
+                                        <input type="text" class="form-control" id="input-payment-telephone" placeholder="شماره تلفن" value="@Model.UserTelephoneNumber" name="telephone" disabled>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title"><i class="fa fa-book"></i> آدرس</h4>
+                            </div>
+                            <div class="panel-body">
+                                <fieldset id="address" class="required">
+                                    <div class="form-group">
+                                        <label for="input-payment-company" class="control-label">شرکت</label>
+                                        <input type="text" class="form-control" id="input-payment-company" placeholder="شرکت" value="@Model.UserCompany" name="company" disabled>
+                                    </div>
+                                    <div class="form-group required">
+                                        <label for="input-payment-address-1" class="control-label">آدرس </label>
+                                        <input type="text" class="form-control" id="input-payment-address-1" placeholder="آدرس " value="@Model.UserAddress" name="address_1" disabled>
+                                    </div>
+                                    <div class="form-group required">
+                                        <label for="input-payment-city" class="control-label">شهر</label>
+                                        <input type="text" class="form-control" id="input-payment-city" placeholder="شهر" value="@Model.UserCity" name="city" disabled>
+                                    </div>
+                                    <div class="form-group required">
+                                        <label for="input-payment-postcode" class="control-label">کد پستی</label>
+                                        <input type="text" class="form-control" id="input-payment-postcode" placeholder="کد پستی" value="@Model.UserPostalCode" name="postcode" disabled>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>
+                    </div>
+                    @using (Html.BeginForm("FinalizeOrder", "Orders", FormMethod.Post))
+                    {
+                        @Html.Hidden("Id", Model.Id);
+                        @Html.Hidden("UserEmail", Model.UserEmail)
+
+                        <div class="col-sm-8">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title"><i class="fa fa-truck"></i> شیوه ی تحویل</h4>
+                                        </div>
+                                        <div class="panel-body">
+                                            <p>لطفا یک شیوه حمل و نقل انتخاب کنید.</p>
+
+                                            @*@Html.Hidden("UserOfOrderId", Model.UserOfOrderId.ToString())*@
+
+                                            @foreach (ShipmentCostDto shipCost in (List<ShipmentCostDto>)ViewBag.ShipmentCosts)
+                                            {
+                                                <div class="radio">
+                                                    <label>
+                                                        <input type="radio" checked name="ShipmentCostId" value="@shipCost.Id" onchange="calculateCost(@shipCost.Cost, @Model.TotalPriceWithEachOrderItemDiscount)" onclick="calculateCost(@shipCost.Cost, @Model.TotalPriceWithEachOrderItemDiscount)">
+                                                        @(shipCost.ShipmentMethodDescription) - @(shipCost.Cost.ToString("0.")) تومان
+                                                    </label>
+                                                    <input type="hidden" id="ShipmentCostId_Hidden" name="ShipmentCostCost" />
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title"><i class="fa fa-credit-card"></i> شیوه پرداخت</h4>
+                                        </div>
+                                        <div class="panel-body">
+                                            <p>لطفا یک شیوه پرداخت برای سفارش خود انتخاب کنید.</p>
+                                            @foreach (PaymentMethodDto payMethod in (List<PaymentMethodDto>)ViewBag.PaymentMethods)
+                                            {
+                                                <div class="radio">
+                                                    <label>
+                                                        <input type="radio" @(payMethod.Description.Contains("آنلاین") ? "checked='checked'" : string.Empty) value="@payMethod.Id" name="PaymentMethodId">
+                                                        @payMethod.Description
+                                                    </label>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title"><i class="fa fa-ticket"></i> استفاده از کوپن تخفیف</h4>
+                                        </div>
+                                        <div class="panel-body">
+                                            <label for="input-coupon" class="col-sm-3 control-label">کد تخفیف خود را وارد کنید</label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" id="input-coupon" placeholder="کد تخفیف خود را در اینجا وارد کنید" value="" name="coupon">
+                                                <span class="input-group-btn">
+                                                    <input type="button" class="btn btn-primary" data-loading-text="بارگذاری ..." id="button-coupon" value="اعمال کوپن">
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title"><i class="fa fa-gift"></i> استفاده از کارت هدیه</h4>
+                                        </div>
+                                        <div class="panel-body">
+                                            <label for="input-voucher" class="col-sm-3 control-label">کد کارت هدیه خود را وارد کنید</label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" id="input-voucher" placeholder="کد کارت هدیه خود را در اینجا وارد کنید ..." value="" name="voucher">
+                                                <span class="input-group-btn">
+                                                    <input type="submit" class="btn btn-primary" data-loading-text="بارگذاری ..." id="button-voucher" value="اعمال کارت هدیه">
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title"><i class="fa fa-shopping-cart"></i> سبد خرید</h4>
+                                        </div>
+                                        <div class="panel-body">
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered">
+                                                    <thead>
+                                                        <tr>
+                                                            <td class="text-center">تصویر</td>
+                                                            <td class="text-left">نام محصول</td>
+                                                            <td class="text-left">تعداد</td>
+                                                            <td class="text-right">قیمت واحد</td>
+                                                            <td class="text-right">کل</td>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @{
+                                                            int counter = 0;
+                                                        }
+                                                        @foreach (OrderItemDto ordItem in Model.OrderItems)
+                                                        {
+                                                            @Html.Hidden("OrderItems[" + counter + "].Id", ordItem.Id)
+                                                            @Html.Hidden("OrderItems[" + counter + "].ProductPriceId", ordItem.ProductPriceId)
+                                                            @Html.Hidden("OrderItems[" + counter + "].OrderItemPicId", ordItem.OrderItemPictureId)
+                                                            @Html.Hidden("OrderItems[" + counter + "].OrderItemDescription", ordItem.Description)
+                                                            @Html.Hidden("OrderItems[" + counter + "].PriceWithDiscount", ordItem.PriceWithDiscount)
+                                                            @Html.Hidden("OrderItems[" + counter + "].PriceWithoutDiscount", ordItem.PriceWithoutDiscount)
+                                                            @*@Html.Hidden("OrderItems[" + counter + "].QuantityWholePriceWithDiscount", ordItem.QuantityWholePriceWithDiscount)
+                                                                @Html.Hidden("OrderItems[" + counter + "].QuantityWholePriceWithoutDiscount", ordItem.QuantityWholePriceWithoutDiscount)
+                                                                @Html.Hidden("OrderItems[" + counter + "].QuantityWholePriceWithoutDiscount", ordItem.QuantityWholePriceWithoutDiscount)*@
+                                                            @Html.Hidden("OrderItems[" + counter + "].HasDiscount", ordItem.HasDiscount)
+                                                            @Html.Hidden("OrderItems[" + counter + "].ProductSummary", ordItem.ProductSummary)
+                                                            @Html.Hidden("OrderItems[" + counter + "].Discount", ordItem.Discount)
+                                                            @Html.Hidden("OrderItems[" + counter + "].DiscountInPercent", ordItem.DiscountInPercent)
+                                                            @Html.Hidden("OrderItems[" + counter + "].OrderItemPictureId", ordItem.OrderItemPictureId)
+                                                            @Html.Hidden("OrderItems[" + counter + "].Quantity", ordItem.Quantity)
+                                                            <tr>
+                                                                <td class="text-center"><a href="product.html"><img src="@Url.Content("~/images/" + ordItem.OrderItemPictureId)" alt="کفش راحتی مردانه" title="کفش راحتی مردانه" class="img-thumbnail" width="50" height="50"></a></td>
+                                                                <td class="text-left"><a href="product.html">@ordItem.Description</a></td>
+                                                                <td class="text-left">
+                                                                    <div class="input-group btn-block" style="max-width: 200px;">
+                                                                        <input type="text" name="quantity" value="@ordItem.Quantity" size="1" class="form-control">
+                                                                        <span class="input-group-btn">
+                                                                            <button type="submit" data-toggle="tooltip" title="بروزرسانی" class="btn btn-primary"><i class="fa fa-refresh"></i></button>
+                                                                            <button type="button" data-toggle="tooltip" title="حذف" class="btn btn-danger" onClick=""><i class="fa fa-times-circle"></i></button>
+                                                                        </span>
+                                                                    </div>
+                                                                </td>
+                                                                <td class="text-right">@ordItem.PriceWithDiscount.ToString("0.") تومان</td>
+                                                                <td class="text-right">@((ordItem.PriceWithDiscount * @ordItem.Quantity).ToString("0.")) تومان</td>
+                                                            </tr>
+
+                                                            if (ordItem.OrderItemSpecifications != null)
+                                                            {
+                                                                int specCounter = 0;
+                                                                foreach (OrderItemSpecificationDto ordSpec in ordItem.OrderItemSpecifications)
+                                                                {
+                                                                    @Html.Hidden("OrderItems[" + counter + "].OrderItemSpecifications[" + specCounter + "].Id", ordSpec.Id);
+                                                                    @Html.Hidden("OrderItems[" + counter + "].OrderItemSpecifications[" + specCounter + "].Title", ordSpec.Title);
+                                                                    @Html.Hidden("OrderItems[" + counter + "].OrderItemSpecifications[" + specCounter + "].Value", ordSpec.Value);
+                                                                    specCounter++;
+                                                                }
+                                                            }
+                                                            counter++;
+                                                        }
+                                                    </tbody>
+                                                    <tfoot>
+                                                        <tr>
+                                                            <td class="text-right" colspan="4"><strong>جمع خرید:</strong></td>
+                                                            <td class="text-right">@Model.TotalPriceWithEachOrderItemDiscount.ToString("0.")  تومان</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="text-right" colspan="4"><strong>هزینه ارسال ثابت :</strong></td>
+                                                            <td id="shipmentCost" class="text-right">0 تومان</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="text-right" colspan="4"><strong>هزینه کل باارسال:</strong></td>
+                                                            <td id="totalCost" class="text-right"></td>
+                                                        </tr>
+                                                    </tfoot>
+                                                </table>
+                                                <input type="hidden" id="FinalPriceWithShipmentCost_hidden" name="FinalPriceWithShipmentCost" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title"><i class="fa fa-pencil"></i> افزودن توضیح برای سفارش.</h4>
+                                        </div>
+                                        <div class="panel-body">
+                                            <textarea rows="4" name="UserCommentsAboutOrder" class="form-control" id="confirm_comment"></textarea>
+                                            <br>
+                                            <div class="buttons">
+                                                <div class="pull-right">
+                                                    <input type="submit" class="btn btn-primary" id="button-confirm" value="تایید سفارش">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <input id="totalcost-input" type="hidden" name="PayingAmount" value="" />
+                                                            }
+
+                </div>
+            </div>
+            <!--Middle Part End -->
+        </div>
+    </div>
+</div>
+
+
+<script src="~/Scripts/KuffJavaScripts/Areas/Store/CheckOut.js"></script>

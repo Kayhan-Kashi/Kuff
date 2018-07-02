@@ -1,0 +1,78 @@
+﻿@model Kuff.WebUI.Areas.Account.Models.LoginViewModel
+
+
+@{
+    ViewBag.Title = "Login";
+}
+
+@section  stylesheet_skin2
+{
+    <link rel="stylesheet" type="text/css" href="~/Content/MarketShop/css/stylesheet-skin2.css" />
+}
+
+@Html.ValidationSummary()
+
+<div id="container">
+    <div class="container">
+        <!-- Breadcrumb Start-->
+        <ul class="breadcrumb">
+            <li><a href="index.html"><i class="fa fa-home"></i></a></li>
+            <li><a href="login.html">حساب کاربری</a></li>
+            <li><a href="login.html">ورود</a></li>
+        </ul>
+        <!-- Breadcrumb End-->
+        <div class="row">
+            <!--Middle Part Start-->
+            <div id="content" class="col-sm-9">
+                <h1 class="title">حساب کاربری ورود</h1>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h2 class="subtitle">مشتری جدید</h2>
+                        <p><strong>ثبت نام حساب کاربری</strong></p>
+                        <p>با ایجاد حساب کاربری میتوانید سریعتر خرید کرده، از وضعیت خرید خود آگاه شده و تاریخچه ی سفارشات خود را مشاهده کنید.</p>
+                        @Html.ActionLink("ادامه", "Register", new { area = "Account", controller = "Accounts" }, new { @class = "btn btn-primary" })
+                    </div>
+                    @using (Html.BeginForm("Login", "Accounts", FormMethod.Post, new { area = "Account" }))
+                    {
+                        @Html.Hidden("returnUrl", ViewBag.ReturnUrl as string)
+
+                        <div class="col-sm-6">
+                            <h2 class="subtitle">مشتری قبلی</h2>
+                            <p><strong>من از قبل مشتری شما هستم</strong></p>
+                            <div class="form-group">
+                                <label class="control-label" for="UserName">نام کاربری</label>
+                                @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", placeholder = "نام کاربری", })
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" for="input-password">رمز عبور</label>
+                                @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "رمز عبور" })
+                                <br />
+                                <a href="#">فراموشی رمز عبور</a>
+                                <div class="pull-right" id="security_div">
+
+                                </div>
+                            </div>
+                            
+                            <div>
+                                @Html.LabelFor(m => m.RememberMe)
+                                @Html.CheckBoxFor(m => m.RememberMe)
+                            </div>
+
+                            <input id="submit_input" type="submit" value="ورود" class="btn btn-primary" />
+
+                        </div>
+
+                    }
+
+                </div>
+            </div>
+            <!--Middle Part End -->
+            <!--Right Part Start -->
+            @Html.Partial("~/Areas/Account/Views/Accounts/RightSidePartial.cshtml")
+            <!--Right Part End -->
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/KuffJavaScripts/Areas/Account/Login.js"></script>
+

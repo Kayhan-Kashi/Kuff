@@ -1,0 +1,172 @@
+﻿@model Kuff.WebUI.Areas.Account.Models.RegisterViewModel
+
+@section  stylesheet_skin2
+{
+    <link rel="stylesheet" type="text/css" href="~/Content/MarketShop/css/stylesheet-skin2.css" />
+}
+
+@Html.ValidationSummary()
+
+<div id="container">
+    <div class="container">
+        <!-- Breadcrumb Start-->
+        <ul class="breadcrumb">
+            <li><a href="index.html"><i class="fa fa-home"></i></a></li>
+            <li><a href="login.html">حساب کاربری</a></li>
+            <li><a href="register.html">ثبت نام</a></li>
+        </ul>
+        <!-- Breadcrumb End-->
+        <div class="row">
+            <!--Middle Part Start-->
+            <div class="col-sm-9" id="content">
+                <h1 class="title">ثبت نام حساب کاربری</h1>
+                <p>اگر قبلا حساب کاربریتان را ایجاد کرد اید جهت ورود به <a href="@Url.Action("Login", new { controller = "Accounts"})">صفحه لاگین</a> مراجعه کنید.</p>
+                @using (Html.BeginForm("Register", "Accounts", new { area = "Account" }, FormMethod.Post, new { @class = "form-horizontal", id = "formReg" }))
+                {
+                    @Html.Hidden("returnUrl", ViewBag.ReturnUrl as string)
+
+                    <fieldset id="account">
+                        <legend>اطلاعات شخصی شما</legend>
+                        <div style="display: none;" class="form-group required">
+                            <label class="col-sm-2 control-label">گروه مشتری</label>
+                            <div class="col-sm-10">
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" checked="checked" value="1" name="customer_group_id">
+                                        پیشفرض
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group required">
+                            <label for="User_FirstName" class="col-sm-2 control-label">نام</label>
+                            <div class="col-sm-10">
+                                @Html.TextBoxFor(m => m.User.FirstName, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.User.FirstName)
+                            </div>
+                        </div>
+                        <div class="form-group required">
+                            <label for="input-lastname" class="col-sm-2 control-label">نام خانوادگی</label>
+                            <div class="col-sm-10">
+                                @Html.TextBoxFor(m => m.User.LastName, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.User.LastName)
+                            </div>
+                        </div>
+                        <div class="form-group required">
+                            <label for="input-email" class="col-sm-2 control-label">آدرس ایمیل</label>
+                            <div class="col-sm-10">
+                                @Html.TextBoxFor(m => m.User.Email, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.User.Email)
+                            </div>
+                        </div>
+                        <div class="form-group required">
+                            <label for="input-telephone" class="col-sm-2 control-label">شماره تلفن همراه</label>
+                            <div class="col-sm-10">
+                                @Html.TextBoxFor(m => m.User.PhoneNumber, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.User.PhoneNumber)
+                            </div>
+                        </div>
+                        <div class="form-group required">
+                            <label for="input-telephone" class="col-sm-2 control-label">شماره تلفن ثابت</label>
+                            <div class="col-sm-10">
+                                @Html.TextBoxFor(m => m.User.TelephoneNumber, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.User.TelephoneNumber)
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset id="address">
+                        <legend>آدرس</legend>
+                        <div class="form-group">
+                            <label for="input-company" class="col-sm-2 control-label">شرکت</label>
+                            <div class="col-sm-10">
+                                @Html.TextBoxFor(m => m.User.Company, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.User.Company)
+                            </div>
+                        </div>
+                        <div class="form-group required">
+                            <label for="input-zone" class="col-sm-2 control-label">استان</label>
+                            <div class="col-sm-10">
+                                <select class="form-control" id="input-citystate" name="User.CityState">
+                                    <option value=""> --- لطفا استان موردنظر راانتخاب کنید --- </option>
+                                    <option value="البرز">البرز</option>
+                                    <option value="تهران">تهران</option>
+                                    <option value="فارس">فارس</option>
+                                    <option value="قزوین">قزوین</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group required">
+                            <label for="input-zone" class="col-sm-2 control-label">شهر</label>
+                            <div class="col-sm-10">
+                                <select class="form-control" id="input-city" name="User.City">
+                                    <option value=""> --- لطفا شهر مورد نظررا انتخاب کنید --- </option>
+                                    <option value="تهران">تهران</option>
+                                    <option value="کرج">کرج</option>
+                                    <option value="شیراز">شیراز</option>
+                                    <option value="قزوین">قزوین</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group required">
+                            <label for="input-address-1" class="col-sm-2 control-label">آدرس </label>
+                            <div class="col-sm-10">
+                                @Html.TextAreaFor(m => m.User.Address, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.User.Address)
+                            </div>
+                        </div>
+                        <div class="form-group required">
+                            <label for="input-postcode" class="col-sm-2 control-label">کد پستی</label>
+                            <div class="col-sm-10">
+                                @Html.TextBoxFor(m => m.User.PostalCode, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.User.PostalCode)
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <div class="form-group required">
+                            <label for="input-UserName" class="col-sm-2 control-label">نام کاربری</label>
+                            <div class="col-sm-10">
+                                @Html.TextBoxFor(m => m.User.UserName, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.User.UserName)
+                            </div>
+                        </div>
+
+                        <legend>رمز عبور شما</legend>
+                        <div class="form-group required">
+                            <label for="input-password" class="col-sm-2 control-label">رمز عبور</label>
+                            <div class="col-sm-10">
+                                @Html.PasswordFor(m => m.Password, new {@class = "form-control"})
+                                @Html.ValidationMessageFor(m => m.Password)
+                            </div>
+                        </div>
+                        <div class="form-group required">
+                            <label for="input-confirm" class="col-sm-2 control-label">تکرار رمز عبور</label>
+                            <div class="col-sm-10">
+                                @Html.PasswordFor(m => m.ConfirmPass, new {@class = "form-control"})
+                                @Html.ValidationMessageFor(m => m.ConfirmPass)
+                            </div>
+                        </div>
+                    </fieldset>
+                    <div class="buttons">
+                        <div class="pull-right">
+                            <text><b>سیاست حریم خصوصی</b> را خوانده ام و با آن موافق هستم: </text>&nbsp;&nbsp;
+                            @Html.RadioButtonFor(m => m.Agreement, true, new { id = "yes_agreement" }) بله
+                            @Html.RadioButtonFor(m => m.Agreement, false) خیر
+                            <br />
+                            <br />
+                            @*<input type="checkbox"  name="agree" id="agree">
+                                &nbsp;من <a class="agree" href="#"><b>سیاست حریم خصوصی</b> را خوانده ام و با آن موافق هستم</a> &nbsp;*@
+                            <input type="submit" class="btn btn-primary" value="ادامه">
+                        </div>
+                    </div>
+                }
+            </div>
+            <!--Middle Part End -->
+            <!--Right Part Start -->
+            @Html.Partial("~/Areas/Account/Views/Accounts/RightSidePartial.cshtml")
+            <!--Right Part End -->
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/KuffJavaScripts/Areas/Account/Register.js"></script>

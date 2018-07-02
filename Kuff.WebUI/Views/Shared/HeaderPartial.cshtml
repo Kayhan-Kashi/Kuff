@@ -1,0 +1,284 @@
+﻿@using Kuff.Common.DTOs.OrderRelated
+@using Kuff.Common.DTOs.AccountRelated
+@using Kuff.Service.Interfaces.AccountRelated
+@using Kuff.Service.Services.AccountRelated
+@using Microsoft.AspNet.Identity
+
+<script src="~/Scripts/KuffJavaScripts/HeaderPartialScripts.js"></script>
+<div id="header">
+    <!-- Top Bar Start-->
+    <nav id="top" class="htop">
+        <div class="container">
+            <div class="row">
+                <span class="drop-icon visible-sm visible-xs"><i class="fa fa-align-justify"></i></span>
+                <div class="pull-left flip left-top">
+                    <div class="links">
+                        <ul>
+                            <li class="wrap_custom_block hidden-sm hidden-xs">
+                                <div class="dropdown-menu custom_block">
+                                    <ul>
+                                        <li>
+                                            <table>
+                                                <tbody>
+                                                    <tr>
+                                                        <td><img alt="" src="~/Content/MarketShop/image/banner/cms-block.jpg"></td>
+                                                        <td><img alt="" src="~/Content/MarketShop/image/banner/responsive.jpg"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><h4>بلاک های محتوا</h4></td>
+                                                        <td><h4>قالب واکنش گرا</h4></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>این یک بلاک مدیریت محتواست. شما میتوانید هر نوع محتوای html نوشتاری یا تصویری را در آن قرار دهید.</td>
+                                                        <td>این یک بلاک مدیریت محتواست. شما میتوانید هر نوع محتوای html نوشتاری یا تصویری را در آن قرار دهید.</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><strong><a class="btn btn-default btn-sm" href="#">ادامه مطلب</a></strong></td>
+                                                        <td><strong><a class="btn btn-default btn-sm" href="#">ادامه مطلب</a></strong></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div id="top-links" class="nav pull-right flip">
+                    <ul>
+                        @{
+                            if (HttpContext.Current.User.Identity.IsAuthenticated)
+                            {
+                                var username = HttpContext.Current.GetOwinContext().Authentication.User.Identity.Name;
+                                var firstName = HttpContext.Current.GetOwinContext().GetUserManager<UserManager>().FindByName(username).FirstName;                            
+
+                                <li>@Html.ActionLink("خروج", "Logout", new { area = "Account", controller = "Accounts" }, new { style = "color:red"})</li>
+                                <li><span style="color:forestgreen">سلام   @(firstName) </span></li>
+                            }
+                            else
+                            {
+                                <li>@Html.ActionLink("ورود", "Login", new { controller = "Accounts", area = "Account" })</li>
+                                <li>@Html.ActionLink("ثبت نام", "Register", new { controller = "Accounts", area = "Account" })</li>
+                            }
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- Top Bar End-->
+    <!-- Header Start-->
+    <header class="header-row">
+        <div class="container">
+            <div class="table-container">
+                <!-- Logo Start -->
+                <div class="col-table-cell col-lg-6 col-md-6 col-sm-12 col-xs-12 inner">
+                    <div id="logo"><a href="index.html"><img class="img-responsive" src="~/Content/MarketShop/image/logo.png" title="MarketShop" alt="MarketShop" /></a></div>
+                </div>
+                <!-- Logo End -->
+                <!-- Mini Cart Start-->
+                <div class="col-table-cell col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div id="cart">
+                        <button id="btn-paymentsummary" type="button" data-toggle="dropdown" data-loading-text="بارگذاری ..." class="heading dropdown-toggle" style="visibility:hidden">
+                            <span class="cart-icon pull-left flip"></span>
+                            <span id="cart-total">@*2 آیتم - 132000 تومان*@</span>
+                        </button>
+
+                        <ul class="dropdown-menu">
+                            <li>
+                                <table class="table">
+                                    <tbody id="tbody-cart"></tbody>
+                                </table>
+                            </li>
+                            <li>
+                                <div>
+                                    <table class="table table-bordered">
+                                        <tbody>
+                                            <tr>
+                                                <td class="text-right"><strong>جمع کل</strong></td>
+                                                <td class="text-right" id="total-pay">@*132000 تومان*@</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-right"><strong>قابل پرداخت</strong></td>
+                                                <td class="text-right" id="payable">@*139880 تومان*@</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <script>
+                                        updatePaymentSummary();
+                                    </script>
+                                    <p class="checkout"><a href="@Url.Action("ShowCart","Orders", new { area = "Store" })" class="btn btn-primary"><i class="fa fa-shopping-cart"></i> مشاهده سبد</a>&nbsp;&nbsp;&nbsp;<a href="@Url.Action("CheckOutFromCartSummary","Orders", new { area = "Store" })" class="btn btn-primary"><i class="fa fa-share"></i> تسویه حساب</a></p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Mini Cart End-->
+                <!-- جستجو Start-->
+                @using (Html.BeginForm("Search", "Home", new { area = "Store" }, FormMethod.Get, null))
+                {
+                    <div class="col-table-cell col-lg-3 col-md-3 col-sm-6 col-xs-12 inner">
+                        <div id="search" class="input-group">
+                            <input id="filter_name" type="text" name="term" value="" placeholder="جستجو" class="form-control input-lg" />
+                            <button type="submit" class="button-search"><i class="fa fa-search"></i></button>
+                        </div>
+                    </div>
+                }
+
+                <!-- جستجو End-->
+            </div>
+        </div>
+    </header>
+    <!-- Header End-->
+    <!-- Main آقایانu Start-->
+
+    <nav id="menu" class="navbar">
+        <div class="navbar-header"> <span class="visible-xs visible-sm"> منو <b></b></span></div>
+        <div class="container">
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav">
+                    <li><a class="home_link" title="خانه" href="@Url.Action("Index", new { controller = "Home", area = "Store" })">خانه</a></li>
+                    <li class="dropdown">
+                        @Html.ActionLink("البسه", "FilterByCategory", new { categoryName = "لباس", controller = "Categories", area = "Store" })
+                        @*<a href="category.html">البسه</a>*@
+                        <div class="dropdown-menu">
+                            <ul>
+                                <li>
+                                    <a href="@Url.Action("FilterByType", new { productTypeName = "تی شرت", controller = "Categories", area = "Store" })">تی شرت @*<span>&rsaquo;</span>*@</a>
+                                    @*<div class="dropdown-menu">
+                                            <ul>
+                                                <li><a href="category.html">آقایان </a> </li>
+                                                <li><a href="category.html">بانوان </a> </li>
+                                            </ul>
+                                        </div>*@
+                                </li>
+                                <li><a href="@Url.Action("FilterByType", new { productTypeName = "شال", controller = "Categories", area = "Store" })">شال</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="dropdown">
+                        <a href="@Url.Action("FilterByCategory", new { categoryName = "دکوراسیون", controller = "Categories", area = "Store" })">دکوراسیون</a>
+                        <div class="dropdown-menu">
+                            <ul>
+                                <li><a href="@Url.Action("FilterByType", new { productTypeName = "تابلو", controller = "Categories", area = "Store" })">تابلو </a> </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="dropdown">
+                        <a href="@Url.Action("FilterByCategory", new { categoryName = "ظروف", controller = "Categories", area = "Store" })">ظروف</a>
+                        <div class="dropdown-menu">
+                            <ul>
+                                <li><a href="@Url.Action("FilterByType", new { productTypeName = "ماگ", controller = "Categories", area = "Store" })">ماگ </a> </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="dropdown">
+                        <a href="category.html">طرح های سفارشی</a>
+                        @*<div class="dropdown-menu">
+                                <ul>
+                                    <li><a href="category.html">آقایان</a> </li>
+                                    <li>
+                                        <a href="category.html">بانوان <span>&rsaquo;</span></a>
+                                        <div class="dropdown-menu">
+                                            <ul>
+                                                <li><a href="category.html">زیردسته های جدید </a> </li>
+                                                <li><a href="category.html">زیردسته ها </a> </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li><a href="category.html">دخترانه</a> </li>
+                                    <li><a href="category.html">پسرانه</a> </li>
+                                    <li><a href="category.html">نوزاد</a> </li>
+                                    <li>
+                                        <a href="category.html">لوازم <span>&rsaquo;</span></a>
+                                        <div class="dropdown-menu">
+                                            <ul>
+                                                <li><a href="category.html">زیردسته های جدید</a></li>
+                                                <li><a href="category.html">زیردسته های جدید</a></li>
+                                                <li><a href="category.html">زیردسته ها</a></li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>*@
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="category.html">راهنمای خرید</a>
+                        <div class="dropdown-menu">
+                            <ul>
+                                <li> <a href="category.html">البسه</a></li>
+                                <li> <a href="category.html">دکوراسیون</a></li>
+                                <li> <a href="category.html">ظروف</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="menu_brands dropdown">
+                        @Html.ActionLink("درباره ما", "AboutUs", new { controller = "Home", area = "Store" })
+                    </li>
+                    <li class="dropdown wrap_custom_block hidden-sm hidden-xs">
+                        @Html.ActionLink("تماس با ما", "ContactUs", new { controller = "Home", area = "Store" })
+                        @*<div class="dropdown-menu custom_block">
+                                <ul>
+                                    <li>
+                                        <table>
+                                            <tbody>
+                                                <tr>
+                                                    <td><img alt="" src="~/Content/MarketShop/image/banner/cms-block.jpg"></td>
+                                                    <td><img alt="" src="~/Content/MarketShop/image/banner/responsive.jpg"></td>
+                                                    <td><img alt="" src="~/Content/MarketShop/image/banner/cms-block.jpg"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><h4>بلاک های محتوا</h4></td>
+                                                    <td><h4>قالب واکنش گرا</h4></td>
+                                                    <td><h4>پشتیبانی ویژه</h4></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>این یک بلاک مدیریت محتواست. شما میتوانید هر نوع محتوای html نوشتاری یا تصویری را در آن قرار دهید.</td>
+                                                    <td>این یک بلاک مدیریت محتواست. شما میتوانید هر نوع محتوای html نوشتاری یا تصویری را در آن قرار دهید.</td>
+                                                    <td>این یک بلاک مدیریت محتواست. شما میتوانید هر نوع محتوای html نوشتاری یا تصویری را در آن قرار دهید.</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong><a class="btn btn-primary btn-sm" href="#">ادامه مطلب</a></strong></td>
+                                                    <td><strong><a class="btn btn-primary btn-sm" href="#">ادامه مطلب</a></strong></td>
+                                                    <td><strong><a class="btn btn-primary btn-sm" href="#">ادامه مطلب</a></strong></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </li>
+                                </ul>
+                            </div>*@
+                    </li>
+                    @*<li class="dropdown information-link">
+                            <a>برگه ها</a>
+                            <div class="dropdown-menu">
+                                <ul>
+                                    <li><a href="login.html">ورود</a></li>
+                                    <li><a href="register.html">ثبت نام</a></li>
+                                    <li><a href="category.html">دسته بندی (شبکه/لیست)</a></li>
+                                    <li><a href="product.html">محصولات</a></li>
+                                    <li><a href="cart.html">سبد خرید</a></li>
+                                    <li><a href="checkout.html">تسویه حساب</a></li>
+                                    <li><a href="compare.html">مقایسه</a></li>
+                                    <li><a href="wishlist.html">لیست آرزو</a></li>
+                                    <li><a href="search.html">جستجو</a></li>
+                                </ul>
+                                <ul>
+                                    <li><a href="about-us.html">درباره ما</a></li>
+                                    <li><a href="404.html">404</a></li>
+                                    <li><a href="elements.html">عناصر</a></li>
+                                    <li><a href="faq.html">سوالات متداول</a></li>
+                                    <li><a href="sitemap.html">نقشه سایت</a></li>
+                                    <li><a href="contact-us.html">تماس با ما</a></li>
+                                </ul>
+                            </div>
+                        </li>*@
+                    <li class="custom-link-right"><a href="#" target="_blank"> همین حالا بخرید!</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main آقایانu End-->
+</div>

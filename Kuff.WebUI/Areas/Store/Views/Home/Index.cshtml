@@ -1,0 +1,79 @@
+﻿@using Kuff.Common.DTOs.ProductRelated
+
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<div id="container">
+    <div class="container">
+        <div class="row">
+            <!--Middle Part Start-->
+            <div id="content" class="col-xs-12">
+                <!-- Slideshow Start-->
+                <div class="slideshow single-slider owl-carousel">
+                    <div class="item"> <a href="#"><img class="img-responsive" src="~/Content/MarketShop/image/slider/banner-1.jpg" alt="banner 2" /></a> </div>
+                    <div class="item"> <a href="#"><img class="img-responsive" src="~/Content/MarketShop/image/slider/banner-2.jpg" alt="banner 1" /></a> </div>
+                    <div class="item"> <a href="#"><img class="img-responsive" src="~/Content/MarketShop/image/slider/banner-3.jpg" alt="banner 1" /></a> </div>
+                </div>
+                <!-- Slideshow End-->
+                <!-- محصولات Tab Start -->
+                @Html.Partial("~/Areas/Store/Views/Home/ProductTabPartial.cshtml", (IEnumerable<ProductDto>)ViewBag.TShirts)
+                <!-- محصولات Tab Start -->
+                <!-- دسته ها محصولات Slider Start-->
+                <div class="category-module" id="latest_category">
+                    <h3 class="subtitle">مد و زیبایی - <a class="viewall" href="category.tpl">نمایش همه</a></h3>
+                    <div class="category-module-content">
+                        <ul id="sub-cat" class="tabs">
+                            <li><a href="#tab-cat1">شال</a></li>
+                        </ul>
+                        <div id="tab-cat1" class="tab_content">
+                            <div class="owl-carousel latest_category_tabs">
+                                @Html.Partial("~/Areas/Store/Views/Home/ProductSummaryPartial.cshtml", (IEnumerable<ProductDto>)ViewBag.Shawls)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- دسته ها محصولات Slider End-->
+                <!-- دسته ها محصولات Slider Start -->
+                <h3 class="subtitle">ماگ - <a class="viewall" href="category.html">نمایش همه</a></h3>
+                <div class="owl-carousel latest_category_carousel">
+                    @Html.Partial("~/Areas/Store/Views/Home/ProductSummaryPartial.cshtml", (IEnumerable<ProductDto>)ViewBag.Mugs)
+                </div>
+                <!-- دسته ها محصولات Slider End -->
+            </div>
+            <!--Middle Part End-->
+        </div>
+    </div>
+</div>
+<!-- Feature Box Start-->
+<div class="container">
+    <div class="custom-feature-box row">
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="feature-box fbox_1">
+                <div class="title">ارسال رایگان</div>
+                <p>برای خرید های بیش از 100 هزار تومان</p>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="feature-box fbox_2">
+                <div class="title">پس فرستادن رایگان</div>
+                <p>بازگشت کالا تا 24 ساعت پس از خرید</p>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="feature-box fbox_3">
+                <div class="title">کارت هدیه</div>
+                <p>بهترین هدیه برای عزیزان شما</p>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="feature-box fbox_4">
+                <div class="title">امتیازات خرید</div>
+                <p>از هر خرید امتیاز کسب کرده و از آن بهره بگیرید</p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Feature Box End-->
